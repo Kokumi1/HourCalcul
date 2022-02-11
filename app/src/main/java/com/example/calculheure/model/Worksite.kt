@@ -2,8 +2,8 @@ package com.example.calculheure.model
 
 import java.util.*
 
-class Worksite(id : Int, city: String, work: String, aM: Int, pM: Int,
-               beginHour: Calendar, endHour: Calendar, var breakTime: Int = 0) {
+class Worksite(var id : Int,var city: String,var work: String,var aM: Int,var pM: Int,
+               var beginHour: Calendar,var endHour: Calendar, var breakTime: Int = 0) {
     //var breakTime : Int = 0
 
     init {
