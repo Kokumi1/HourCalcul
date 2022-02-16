@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calculheure.R
 import com.example.calculheure.model.Day
@@ -12,10 +14,35 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var currentMonthButton : Button
+    private lateinit var currentWeekButton: Button
+    private lateinit var todayButton: Button
+    private lateinit var totalHourTextView: TextView
+    private lateinit var supHourTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        recyclerView = findViewById(R.id.main_recycler)
+        recyclerView.adapter = MonthRecycler(ArrayList())
+
+        currentMonthButton = findViewById(R.id.main_current_month)
+        currentMonthButton.setOnClickListener { //todo: go current month
+             }
+        currentWeekButton = findViewById(R.id.main_current_week)
+        currentWeekButton.setOnClickListener { //todo: go current week
+             }
+        todayButton = findViewById(R.id.main_today)
+        todayButton.setOnClickListener { //todo: go update today
+
+        }
+
+        totalHourTextView= findViewById(R.id.main_total_hour)
+        supHourTextView= findViewById(R.id.main_sup_hour)
 
     }
 }

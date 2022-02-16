@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/drawable/border.xml" value="0.182" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/activity_main.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/month_cell.xml" value="0.27717391304347827" />
       </map>
