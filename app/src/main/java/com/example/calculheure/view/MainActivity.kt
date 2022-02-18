@@ -1,5 +1,6 @@
 package com.example.calculheure.view
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calculheure.R
 import com.example.calculheure.model.Day
+import com.example.calculheure.viewModel.MainViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,13 +26,28 @@ class MainActivity : AppCompatActivity() {
     private lateinit var totalHourTextView: TextView
     private lateinit var supHourTextView: TextView
 
+    private lateinit var mMainViewModel: MainViewModel
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
+        val data : List<Day> = ArrayList()
+        mMainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+
         recyclerView = findViewById(R.id.main_recycler)
-        recyclerView.adapter = MonthRecycler(ArrayList())
+        recyclerView.adapter = MonthRecycler(data as ArrayList<Day>)
+        mMainViewModel.getDays().observe(this){
+            kotlin.run{
+                data.clear()
+                data.addAll(it)
+                recyclerView.adapter!!.notifyDataSetChanged()
+            }
+        }
+
 
         currentMonthButton = findViewById(R.id.main_current_month)
         currentMonthButton.setOnClickListener { //todo: go current month
@@ -96,8 +115,7 @@ class MonthRecycler(private val pDays : ArrayList<Day>) : RecyclerView.Adapter<M
             if(pDays[i].workTime() > 7) addHour+= pDays[i].workTime() - 7
         }
         holder.display(
-            pDays[weeks[position][0]].date, pDays[weeks[position][1]].date,
-        totalHour,addHour)
+            pDays[weeks[position][0]].date,totalHour,addHour)
     }
 
     override fun getItemCount(): Int {
@@ -106,8 +124,14 @@ class MonthRecycler(private val pDays : ArrayList<Day>) : RecyclerView.Adapter<M
 
     class MonthHolder(view: View): RecyclerView.ViewHolder(view){
 
-        fun display(pbeginDay: Date, pEndDay: Date, pTotalHour: Int, pAddHour: Int){
+        private val dateTextView = view.findViewById<TextView>(R.id.month_cell_date)
+        private val totalTextView = view.findViewById<TextView>(R.id.month_cell_total)
+        private val additionalTextView = view.findViewById<TextView>(R.id.month_cell_additional)
 
+        fun display(pBeginDay: Date, pTotalHour: Int, pAddHour: Int){
+            dateTextView.text = SimpleDateFormat("dd/MM,yyyy", Locale.FRANCE).format(pBeginDay.time)
+            totalTextView.text = pTotalHour.toString()
+            additionalTextView.text = pAddHour.toString()
         }
     }
 }
