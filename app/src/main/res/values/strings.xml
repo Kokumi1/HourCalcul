@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Calculheure</string>
+
+    <string name="main_result">Month Hour</string>
+    <string name="main_button_month">Current Month</string>
+    <string name="main_total_hour">Total Hour</string>
+    <string name="main_additional_hour">Additional Hour</string>
+    <string name="main_today">Fill Today</string>
+    <string name="main_current_week">Current Week</string>
+
+    <string name="modif_day">Day</string>
+    <string name="modif_road">Road</string>
+    <string name="modif_load">Load</string>
+    <string name="modif_confirm">Confirm</string>
+
+    <string name="month_result">Balance Sheet</string>
+    <string name="month_total">Total Hour:</string>
+    <string name="month_additional">Additional Hour:</string>
+    <string name="month_button">Actual Week</string>
+
+    <string name="week_total">Total</string>
+    <string name="week_week">Week</string>
+    <string name="week_left_arrow">previous button</string>
+    <string name="week_right_arrow">next button</string>
+    <string name="week_morning">Morning Hour:</string>
+    <string name="week_road">Road Time:</string>
+    <string name="week_break">Break Time</string>
+    <string name="week_total_time">Total Time:</string>
+    <string name="week_afternoon">Afternoon Hour:</string>
+    <string name="week_loading">Loading Time:</string>
+    <string name="week_additional">Additional Hour:</string>
+
 </resources>

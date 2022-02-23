@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculheure">
         <activity
+            android:name=".view.MonthActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.WeekActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.ModifActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>

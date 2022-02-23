@@ -33,11 +33,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        //View Model
         val data : List<Day> = ArrayList()
         mMainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-
+        //RecyclerView
         recyclerView = findViewById(R.id.main_recycler)
         recyclerView.adapter = MonthRecycler(data as ArrayList<Day>)
         mMainViewModel.getDays().observe(this){
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+        //Button
         currentMonthButton = findViewById(R.id.main_current_month)
         currentMonthButton.setOnClickListener { //todo: go current month
              }
@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
+/**
+ * recycler View Adapter
+ */
 class MonthRecycler(private val pDays : ArrayList<Day>) : RecyclerView.Adapter<MonthRecycler.MonthHolder>(){
     private var weeks = Array(5) { IntArray(2) }
 
@@ -122,12 +126,18 @@ class MonthRecycler(private val pDays : ArrayList<Day>) : RecyclerView.Adapter<M
         return weeks.size
     }
 
+    /**
+     * recycler View Holder
+     */
     class MonthHolder(view: View): RecyclerView.ViewHolder(view){
 
         private val dateTextView = view.findViewById<TextView>(R.id.month_cell_date)
         private val totalTextView = view.findViewById<TextView>(R.id.month_cell_total)
         private val additionalTextView = view.findViewById<TextView>(R.id.month_cell_additional)
 
+        /**
+         * display data in cell
+         */
         fun display(pBeginDay: Date, pTotalHour: Int, pAddHour: Int){
             dateTextView.text = SimpleDateFormat("dd/MM,yyyy", Locale.FRANCE).format(pBeginDay.time)
             totalTextView.text = pTotalHour.toString()

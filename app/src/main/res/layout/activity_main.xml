@@ -10,7 +10,7 @@
         android:id="@+id/main_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="month result"
+        android:text="@string/main_result"
         android:layout_margin="10dp" />
 
     <Button
@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_alignParentEnd="true"
-        android:text="current month"
-        />
+        android:text="@string/main_button_month"
+        tools:ignore="RelativeOverlap" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_recycler"
@@ -33,7 +33,7 @@
         android:id="@+id/main_total_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Hour"
+        android:text="@string/main_total_hour"
         android:layout_margin="10dp"
         android:layout_below="@id/main_recycler"
         />
@@ -42,7 +42,7 @@
         android:id="@+id/main_sup_hour"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="additional Hour"
+        android:text="@string/main_additional_hour"
         android:layout_margin="10dp"
         android:layout_below="@id/main_recycler"
         android:layout_alignParentEnd="true"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
-        android:text="fill today"
+        android:text="@string/main_today"
         />
 
     <Button
@@ -64,7 +64,7 @@
         android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="current week"
+        android:text="@string/main_current_week"
         />
 
 </RelativeLayout>
