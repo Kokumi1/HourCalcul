@@ -1,6 +1,7 @@
 package com.example.calculheure.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -50,14 +51,19 @@ class MainActivity : AppCompatActivity() {
 
         //Button
         currentMonthButton = findViewById(R.id.main_current_month)
-        currentMonthButton.setOnClickListener { //todo: go current month
+        currentMonthButton.setOnClickListener {
+            val intent = Intent(this,MonthActivity::class.java)
+            startActivity(intent)
              }
         currentWeekButton = findViewById(R.id.main_current_week)
-        currentWeekButton.setOnClickListener { //todo: go current week
+        currentWeekButton.setOnClickListener {
+            val intent = Intent(this,WeekActivity::class.java)
+            startActivity(intent)
              }
         todayButton = findViewById(R.id.main_today)
-        todayButton.setOnClickListener { //todo: go update today
-
+        todayButton.setOnClickListener {
+            val intent = Intent(this,ModifActivity::class.java)
+            startActivity(intent)
         }
 
         totalHourTextView= findViewById(R.id.main_total_hour)

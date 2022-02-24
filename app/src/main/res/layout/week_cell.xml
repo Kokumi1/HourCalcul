@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border">
+
+    <TextView
+        android:id="@+id/week_cell_day"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/modif_day"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/week_cell_break"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/week_break"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/week_cell_day"/>
+
+    <TextView
+        android:id="@+id/week_cell_hour"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/main_total_hour"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/week_cell_break"/>
+
+    <TextView
+        android:id="@+id/week_cell_road"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/modif_road"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/week_cell_hour"/>
+
+    <TextView
+        android:id="@+id/week_cell_load"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/modif_load"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/week_cell_road"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/week_cell_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/week_cell_day"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/week_cell_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/week_status"
+        android:textSize="30sp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/week_cell_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/week_fill"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/border">
+
+    <EditText
+        android:id="@+id/modif_cell_worksite"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/modif_cell_worksite"
+        android:autofillHints="@string/modif_cell_worksite"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        />
+
+    <EditText
+        android:id="@+id/modif_cell_city"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/modif_cell_city"
+        android:autofillHints="@string/modif_cell_city"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/modif_cell_worksite"
+        />
+
+    <EditText
+        android:id="@+id/modif_cell_work"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/modif_cell_work"
+        android:autofillHints="@string/modif_cell_work"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/modif_cell_city"
+        />
+
+    <EditText
+        android:id="@+id/modif_cell_morning"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/modif_cell_morning"
+        android:autofillHints="@string/modif_cell_morning"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/modif_cell_work"
+        />
+
+    <EditText
+        android:id="@+id/modif_cell_afternoon"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/modif_cell_afternoon"
+        android:autofillHints="@string/modif_cell_afternoon"
+        android:inputType="text"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/modif_cell_morning"
+        />
+
+    <EditText
+        android:id="@+id/modif_cell_begin_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/modif_cell_begin_hour"
+        android:autofillHints="@string/modif_cell_begin_hour"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/modif_cell_worksite"
+        android:layout_toEndOf="@id/modif_cell_worksite"
+        />
+
+    <EditText
+        android:id="@+id/modif_cell_end_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/modif_cell_end_hour"
+        android:autofillHints="@string/modif_cell_end_hour"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/modif_cell_worksite"
+        android:layout_toEndOf="@id/modif_cell_work"
+        />
+
+
+</RelativeLayout>
