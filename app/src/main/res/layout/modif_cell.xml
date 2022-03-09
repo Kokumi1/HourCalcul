@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="130dp"
     android:background="@drawable/border">
 
     <EditText
         android:id="@+id/modif_cell_worksite"
-        android:layout_width="70dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:hint="@string/modif_cell_worksite"
         android:autofillHints="@string/modif_cell_worksite"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         />
 
     <EditText
         android:id="@+id/modif_cell_city"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:hint="@string/modif_cell_city"
         android:autofillHints="@string/modif_cell_city"
@@ -29,7 +29,7 @@
 
     <EditText
         android:id="@+id/modif_cell_work"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:hint="@string/modif_cell_work"
         android:autofillHints="@string/modif_cell_work"
@@ -41,23 +41,22 @@
 
     <EditText
         android:id="@+id/modif_cell_morning"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:hint="@string/modif_cell_morning"
-        android:autofillHints="@string/modif_cell_morning"
-        android:inputType="text"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/modif_cell_work"
-        />
+        android:autofillHints="@string/modif_cell_morning"
+        android:hint="@string/modif_cell_morning"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/modif_cell_afternoon"
-        android:layout_width="70dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:hint="@string/modif_cell_afternoon"
         android:autofillHints="@string/modif_cell_afternoon"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@id/modif_cell_morning"
@@ -67,14 +66,12 @@
         android:id="@+id/modif_cell_begin_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/modif_cell_begin_hour"
-        android:autofillHints="@string/modif_cell_begin_hour"
-        android:inputType="text"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
         android:layout_below="@id/modif_cell_worksite"
-        android:layout_toEndOf="@id/modif_cell_worksite"
-        />
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="10dp"
+        android:autofillHints="@string/modif_cell_begin_hour"
+        android:hint="@string/modif_cell_begin_hour"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/modif_cell_end_hour"
@@ -84,9 +81,33 @@
         android:autofillHints="@string/modif_cell_end_hour"
         android:inputType="text"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="60dp"
         android:layout_below="@id/modif_cell_worksite"
-        android:layout_toEndOf="@id/modif_cell_work"
+        android:layout_toEndOf="@id/modif_cell_begin_hour"
+        />
+
+    <ImageButton
+        android:id="@+id/modif_cell_valid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/modif_cell_afternoon"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="centerInside"
+        android:src="@android:drawable/ic_input_add"
+        android:contentDescription="@string/modif_cell_valid" />
+
+    <ImageButton
+        android:id="@+id/modif_cell_erase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modif_cell_afternoon"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:contentDescription="@string/modif_cell_erase"
+        android:scaleType="centerInside"
+        android:src="@android:drawable/ic_delete"
         />
 
 
