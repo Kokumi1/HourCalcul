@@ -6,12 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
     <TextView
         android:id="@+id/main_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_result"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:layout_below="@id/main_toolbar"/>
 
     <Button
         android:id="@+id/main_current_month"
@@ -19,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_alignParentEnd="true"
+        android:layout_below="@id/main_toolbar"
         android:text="@string/main_button_month"
         tools:ignore="RelativeOverlap" />
 
@@ -27,7 +39,8 @@
         android:layout_width="500dp"
         android:layout_height="400dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="70dp" />
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/main_result"/>
 
     <TextView
         android:id="@+id/main_total_hour"

@@ -44,5 +44,9 @@
     <string name="modif_cell_valid">add Worksite</string>
     <string name="modif_cell_erase">delete existing worksite</string>
 
+    <string name="toolbar_home">Month</string>
+    <string name="toolbar_back">Back</string>
+    <string name="toolbar_today">add Today</string>
+
 
 </resources>

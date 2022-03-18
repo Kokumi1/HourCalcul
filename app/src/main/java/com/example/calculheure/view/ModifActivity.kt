@@ -5,13 +5,12 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calculheure.R
@@ -26,6 +25,7 @@ class ModifActivity : AppCompatActivity() {
     private lateinit var roadEditText: EditText
     private lateinit var loadEditText: EditText
     private lateinit var validButton: Button
+    private lateinit var toolbar: Toolbar
 
     private val worksiteList = ArrayList<Worksite?>()
 
@@ -44,6 +44,34 @@ class ModifActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
 
+        //Toolbar
+        toolbar = findViewById(R.id.modif_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar,menu)
+        //menu?.getItem(R.id.toolbar_today)?.isVisible = false
+        //menu?.getItem(R.id.toolbar_today)?.isEnabled = false
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.toolbar_home->{
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     fun saveNewWorksite(pWorksite: Worksite){

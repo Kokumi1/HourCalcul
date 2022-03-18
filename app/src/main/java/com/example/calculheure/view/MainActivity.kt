@@ -4,11 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var todayButton: Button
     private lateinit var totalHourTextView: TextView
     private lateinit var supHourTextView: TextView
+    private lateinit var toolbar: Toolbar
 
     private lateinit var mMainViewModel: MainViewModel
 
@@ -51,6 +51,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //Toolbar
+        toolbar = findViewById(R.id.main_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+
         //Button
         currentMonthButton = findViewById(R.id.main_current_month)
         currentMonthButton.setOnClickListener {
@@ -71,6 +78,29 @@ class MainActivity : AppCompatActivity() {
         totalHourTextView= findViewById(R.id.main_total_hour)
         supHourTextView= findViewById(R.id.main_sup_hour)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.toolbar_home->{
+                val intent = Intent(this,MonthActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.toolbar_today->{
+                val intent = Intent(this,ModifActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
 
