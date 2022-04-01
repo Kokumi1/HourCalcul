@@ -30,6 +30,7 @@
     <string name="week_loading">Loading Time:</string>
     <string name="week_additional">Additional Hour:</string>
     <string name="week_recycler">list of days</string>
+    <string name="week_worksite">0</string>
 
     <string name="week_status">Day OFF</string>
     <string name="week_fill">Fill</string>

@@ -8,17 +8,16 @@ import com.example.calculheure.model.Worksite
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainViewModel : ViewModel() {
+class MonthViewModel :ViewModel() {
 
-        private var mDays : MutableLiveData<List<Day>> = MutableLiveData()
+    private var mDays : MutableLiveData<List<Day>> = MutableLiveData()
 
-    fun getDays() : LiveData<List<Day>>{
-        createDays()
+    fun getDay(): LiveData<List<Day>>{
+        createDay()
         return mDays
     }
 
-    private fun createDays(){
-
+    fun createDay(){
         val c1 = Calendar.getInstance()
         val c2 = Calendar.getInstance()
         val dateAM = Date(2022,1,10,9,0)
@@ -36,6 +35,5 @@ class MainViewModel : ViewModel() {
         list.add(day)
 
         mDays.postValue(list)
-
     }
 }

@@ -8,7 +8,10 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.example.calculheure.R
+import com.example.calculheure.model.Day
+import com.example.calculheure.viewModel.MonthViewModel
 import java.util.*
 
 class MonthActivity : AppCompatActivity() {
@@ -19,6 +22,7 @@ class MonthActivity : AppCompatActivity() {
     private lateinit var additionalTextView: TextView
     private lateinit var weekButton: Button
     private lateinit var toolbar:Toolbar
+    private lateinit var monthViewModel: MonthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,23 @@ class MonthActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        //View Model
+        monthViewModel = ViewModelProvider(this).get(MonthViewModel::class.java)
+        val data : List<Day> = monthViewModel.getDay().value!!
+        showData(data)
+    }
+
+    private fun showData(pData : List<Day>){
+        var total = 0
+        var additional = 0
+
+        for(day in pData){
+            total+= day.workTime()
+            if(day.workTime() > 7) additional+=day.workTime()-7
+        }
+        totalTextView.text = total.toString()
+        additionalTextView.text = additional.toString()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

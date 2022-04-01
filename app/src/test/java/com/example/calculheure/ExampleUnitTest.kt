@@ -6,7 +6,6 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -37,7 +36,7 @@ class ExampleUnitTest {
         c1.time = dateAM
         c2.time = datePM
 
-        val workList = ArrayList<Worksite>()
+        val workList = ArrayList<Worksite?>()
         workList.add(Worksite(0,"soulsForge","Kill",3,3, c1, c2))
         workList.add(Worksite(1,"Cathai","harmonize",3,3, c1, c2))
         val day = Day(Date(2022,1,10,9,0),1,1,"test",

@@ -1,6 +1,5 @@
 package com.example.calculheure.viewModel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.calculheure.model.Day
@@ -8,11 +7,11 @@ import com.example.calculheure.model.Worksite
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainViewModel : ViewModel() {
+class WeekViewModel : ViewModel() {
 
-        private var mDays : MutableLiveData<List<Day>> = MutableLiveData()
+    var mDays: MutableLiveData<List<Day>> = MutableLiveData()
 
-    fun getDays() : LiveData<List<Day>>{
+    fun getDays(): MutableLiveData<List<Day>>{
         createDays()
         return mDays
     }

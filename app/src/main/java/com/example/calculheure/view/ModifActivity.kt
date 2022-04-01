@@ -11,10 +11,13 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calculheure.R
+import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
+import com.example.calculheure.viewModel.ModifViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -27,18 +30,30 @@ class ModifActivity : AppCompatActivity() {
     private lateinit var validButton: Button
     private lateinit var toolbar: Toolbar
 
-    private val worksiteList = ArrayList<Worksite?>()
+    private lateinit var mModifViewModel: ModifViewModel
+
+    private var worksiteList = ArrayList<Worksite?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modif)
 
+        //View Model
+        mModifViewModel = ViewModelProvider(this).get(ModifViewModel::class.java)
+        val data : Day = mModifViewModel.getDay().value!!
+        worksiteList = data.worksite
+        dayTextView.text = data.date.toString()
+        roadEditText.setText(data.travel)
+        loadEditText.setText(data.loading)
+
+        //Button
         validButton = findViewById(R.id.modif_confirm)
         validButton.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
 
+        //RecyclerView
         recyclerView = findViewById(R.id.modif_recycler)
         recyclerView.adapter = ModifAdapter(worksiteList, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
