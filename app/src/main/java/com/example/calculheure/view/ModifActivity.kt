@@ -34,18 +34,28 @@ class ModifActivity : AppCompatActivity() {
 
     private var worksiteList = ArrayList<Worksite?>()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modif)
 
+        dayTextView = findViewById(R.id.modif_day)
+        roadEditText = findViewById(R.id.modif_road)
+        loadEditText = findViewById(R.id.modif_load)
+
         //View Model
         mModifViewModel = ViewModelProvider(this).get(ModifViewModel::class.java)
-        val data : Day = mModifViewModel.getDay().value!!
-        worksiteList = data.worksite
-        dayTextView.text = data.date.toString()
-        roadEditText.setText(data.travel)
-        loadEditText.setText(data.loading)
-
+        lateinit var data : Day
+        mModifViewModel.getDay().observe(this){
+            kotlin.run {
+                data = it
+                worksiteList = data.worksite
+                recyclerView.adapter!!.notifyDataSetChanged()
+                dayTextView.text = data.date.toString()
+                roadEditText.setText(data.travel.toString())
+                loadEditText.setText(data.loading.toString())
+            }
+        }
         //Button
         validButton = findViewById(R.id.modif_confirm)
         validButton.setOnClickListener {

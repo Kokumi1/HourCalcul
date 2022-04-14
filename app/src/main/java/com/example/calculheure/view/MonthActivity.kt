@@ -13,11 +13,11 @@ import com.example.calculheure.R
 import com.example.calculheure.model.Day
 import com.example.calculheure.viewModel.MonthViewModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MonthActivity : AppCompatActivity() {
 
     private lateinit var monthCalendar: Calendar
-    private lateinit var resultTextView: TextView
     private lateinit var totalTextView: TextView
     private lateinit var additionalTextView: TextView
     private lateinit var weekButton: Button
@@ -42,8 +42,17 @@ class MonthActivity : AppCompatActivity() {
 
         //View Model
         monthViewModel = ViewModelProvider(this).get(MonthViewModel::class.java)
-        val data : List<Day> = monthViewModel.getDay().value!!
-        showData(data)
+        val data : ArrayList<Day> = ArrayList()
+        monthViewModel.getDay().observe(this){
+            kotlin.run{
+                data.clear()
+                data.addAll(it)
+                showData(data)
+            }
+        }
+
+        totalTextView = findViewById(R.id.month_total)
+        additionalTextView = findViewById(R.id.month_additional_hour)
     }
 
     private fun showData(pData : List<Day>){

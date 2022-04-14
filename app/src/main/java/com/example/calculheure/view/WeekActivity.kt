@@ -1,5 +1,6 @@
 package com.example.calculheure.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.example.calculheure.R
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import com.example.calculheure.viewModel.WeekViewModel
+import kotlin.collections.ArrayList
 
 class WeekActivity : AppCompatActivity() {
 
@@ -35,6 +37,7 @@ class WeekActivity : AppCompatActivity() {
     private lateinit var weekViewModel: WeekViewModel
 
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_week)
@@ -57,18 +60,27 @@ class WeekActivity : AppCompatActivity() {
         additionalTextView = findViewById(R.id.week_additional)
 
         //Toolbar
-        toolbar = findViewById(R.id.month_toolbar)
+        toolbar = findViewById(R.id.week_toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         //View Model
+        val data : ArrayList<Day> = ArrayList()
         weekViewModel = ViewModelProvider(this).get(WeekViewModel::class.java)
-        val data = weekViewModel.getDays().value
+
 
         //RecyclerView
         weekRecyclerView = findViewById(R.id.week_recycler)
-        weekRecyclerView.adapter = WeekRecycler(data!!,this)
+        weekRecyclerView.adapter = WeekRecycler(data,this)
+        weekViewModel.getDays().observe(this){
+            kotlin.run {
+                data.clear()
+                data.addAll(it)
+                weekRecyclerView.adapter!!.notifyDataSetChanged()
+                showData(data)
+            }
+        }
     }
 
     private fun showData(pData : List<Day>){
