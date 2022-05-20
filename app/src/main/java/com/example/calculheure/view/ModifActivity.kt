@@ -59,6 +59,7 @@ class ModifActivity : AppCompatActivity() {
         //Button
         validButton = findViewById(R.id.modif_confirm)
         validButton.setOnClickListener {
+            mModifViewModel.setDay(data,this)
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
@@ -200,8 +201,8 @@ class ModifActivity : AppCompatActivity() {
              * save the edit
              */
             private fun saveWorksite(new : Boolean, pOriginal: Worksite? = null){
-                 val partsBegin = beginEditText.text.toString().split(":")
-                 val partsEnd = endEditTex.text.toString().split(":")
+                 val partsBegin = beginEditText.text.toString().split(" : ")
+                 val partsEnd = endEditTex.text.toString().split(" : ")
 
                  val beginCalendar = Calendar.getInstance()
                  val endCalendar = Calendar.getInstance()
@@ -212,7 +213,7 @@ class ModifActivity : AppCompatActivity() {
                  endCalendar.set(Calendar.MINUTE,Integer.parseInt(partsEnd[1]))
 
                  val worksite = Worksite(
-                     Integer.parseInt(workEditText.text.toString()),
+                     Integer.parseInt(worksiteEditText.text.toString()),
                      cityEditText.text.toString(),
                      workEditText.text.toString(),
                      Integer.parseInt(morningEditText.text.toString()),

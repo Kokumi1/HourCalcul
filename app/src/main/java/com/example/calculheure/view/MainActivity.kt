@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.main_recycler)
         recyclerView.adapter = MonthRecycler(data as ArrayList<Day>)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        mMainViewModel.getDays().observe(this){
+        mMainViewModel.getDays(this).observe(this){
             kotlin.run{
                 data.clear()
                 data.addAll(it)
@@ -152,7 +152,7 @@ class MonthRecycler(private val pDays : ArrayList<Day>?) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: MonthHolder, position: Int) {
         var totalHour = 0
         var addHour = 0
-        if(pDays != null) {
+        if(pDays != null && pDays.size != 0) {
             for (i in weeks[position][0]..weeks[position][1]) {
                 totalHour += pDays[i].workTime()
                 if (pDays[i].workTime() > 7) addHour += pDays[i].workTime() - 7

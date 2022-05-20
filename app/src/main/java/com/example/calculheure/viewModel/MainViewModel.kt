@@ -1,10 +1,12 @@
 package com.example.calculheure.viewModel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
+import com.example.calculheure.service.DataTalker
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -12,8 +14,9 @@ class MainViewModel : ViewModel() {
 
         private var mDays : MutableLiveData<List<Day>> = MutableLiveData()
 
-    fun getDays() : LiveData<List<Day>>{
-        createDays()
+    fun getDays(pContext: Context) : LiveData<List<Day>>{
+        //createDays()
+        retrieveDay(pContext)
         return mDays
     }
 
@@ -37,5 +40,16 @@ class MainViewModel : ViewModel() {
 
         mDays.postValue(list)
 
+    }
+
+    private fun retrieveDay(pContext: Context) {
+        val dataTalk = DataTalker(pContext)
+
+        //val day = dataTalk.getDay(Date(2022,2,10))
+        val day = dataTalk.getDay("10/03/2022")
+        val list = ArrayList<Day>()
+        list.add(day)
+
+        mDays.postValue(list)
     }
 }
