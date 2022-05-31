@@ -43,19 +43,39 @@
         android:layout_below="@id/main_result"/>
 
     <TextView
+        android:id="@+id/main_total_hour_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_recycler"
+        android:layout_margin="10dp"
+        android:text="@string/main_total_hour"
+        />
+
+    <TextView
         android:id="@+id/main_total_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/main_total_hour"
-        android:layout_margin="10dp"
+        android:text="@string/general_zero"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/main_recycler"
+        android:layout_toEndOf="@id/main_total_hour_text"
+        />
+
+    <TextView
+        android:id="@+id/main_sup_hour_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_recycler"
+        android:layout_toStartOf="@id/main_sup_hour"
+        android:layout_marginTop="10dp"
+        android:text="@string/main_additional_hour"
         />
 
     <TextView
         android:id="@+id/main_sup_hour"
-        android:layout_width="150dp"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:text="@string/main_additional_hour"
+        android:text="@string/general_zero"
         android:layout_margin="10dp"
         android:layout_below="@id/main_recycler"
         android:layout_alignParentEnd="true"

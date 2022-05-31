@@ -3,14 +3,15 @@
 
     <string name="main_result">Month Hour</string>
     <string name="main_button_month">Current Month</string>
-    <string name="main_total_hour">Total Hour</string>
-    <string name="main_additional_hour">Additional Hour</string>
+    <string name="main_total_hour">Total Hour:</string>
+    <string name="main_total_hour_holder" formatted="true">Total Hour: %s1</string>
+    <string name="main_additional_hour">Additional Hour:</string>
     <string name="main_today">Fill Today</string>
     <string name="main_current_week">Current Week</string>
 
     <string name="modif_day">Day</string>
-    <string name="modif_road">Road</string>
-    <string name="modif_load">Load</string>
+    <string name="modif_road">Road:</string>
+    <string name="modif_load">Load:</string>
     <string name="modif_confirm">Confirm</string>
 
     <string name="month_result">Balance Sheet</string>
@@ -49,5 +50,6 @@
     <string name="toolbar_back">Back</string>
     <string name="toolbar_today">add Today</string>
 
-
+    <string name="general_hourUnit">h</string>
+    <string name="general_zero">0</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.calculheure.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -41,16 +42,15 @@ class MainActivity : AppCompatActivity() {
 
         //RecyclerView
         recyclerView = findViewById(R.id.main_recycler)
-        recyclerView.adapter = MonthRecycler(data as ArrayList<Day>)
+        recyclerView.adapter = MonthRecycler(data as ArrayList<Day>,this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        mMainViewModel.getDays(this).observe(this){
-            kotlin.run{
+        mMainViewModel.getDays(this).observe(this) {
+            kotlin.run {
                 data.clear()
                 data.addAll(it)
                 recyclerView.adapter!!.notifyDataSetChanged()
             }
         }
-
         //Toolbar
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar)
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 /**
  * recycler View Adapter
  */
-class MonthRecycler(private val pDays : ArrayList<Day>?) : RecyclerView.Adapter<MonthRecycler.MonthHolder>(){
+class MonthRecycler(private val pDays : ArrayList<Day>?,private val pContext: Context) : RecyclerView.Adapter<MonthRecycler.MonthHolder>(){
     private var weeks = Array(5) { IntArray(2) }
 
     init {
@@ -158,7 +158,7 @@ class MonthRecycler(private val pDays : ArrayList<Day>?) : RecyclerView.Adapter<
                 if (pDays[i].workTime() > 7) addHour += pDays[i].workTime() - 7
             }
             holder.display(
-                pDays[weeks[position][0]].date, totalHour, addHour
+                pDays[weeks[position][0]].date, totalHour, addHour, pContext
             )
         }
     }
@@ -179,10 +179,10 @@ class MonthRecycler(private val pDays : ArrayList<Day>?) : RecyclerView.Adapter<
         /**
          * display data in cell
          */
-        fun display(pBeginDay: Date, pTotalHour: Int, pAddHour: Int){
+        fun display(pBeginDay: Date, pTotalHour: Int, pAddHour: Int, pContext: Context){
             dateTextView.text = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(pBeginDay.time)
-            totalTextView.text = pTotalHour.toString()
-            additionalTextView.text = pAddHour.toString()
+            totalTextView.text =StringBuilder(pContext.getString(R.string.main_total_hour)+pTotalHour)
+            additionalTextView.text = StringBuilder(pContext.getString(R.string.main_additional_hour)+pAddHour)
         }
     }
 }

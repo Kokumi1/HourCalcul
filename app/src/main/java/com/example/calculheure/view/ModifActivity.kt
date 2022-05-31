@@ -6,10 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +43,7 @@ class ModifActivity : AppCompatActivity() {
         //View Model
         mModifViewModel = ViewModelProvider(this).get(ModifViewModel::class.java)
         lateinit var data : Day
-        mModifViewModel.getDay().observe(this){
+        mModifViewModel.getDay(this).observe(this){
             kotlin.run {
                 data = it
                 worksiteList = data.worksite
@@ -102,11 +99,13 @@ class ModifActivity : AppCompatActivity() {
 
     fun saveNewWorksite(pWorksite: Worksite){
         worksiteList.add(pWorksite)
+        Toast.makeText(this,"Worksite Save",Toast.LENGTH_SHORT).show()
     }
 
     fun saveEditWorksite(pWorksite: Worksite,pWorksiteEdit: Worksite){
         worksiteList.remove(pWorksite)
         worksiteList.add(pWorksiteEdit)
+        Toast.makeText(this,"Worksite Save",Toast.LENGTH_SHORT).show()
     }
 
     fun deleteWorksite(pWorksite: Worksite){
@@ -191,7 +190,7 @@ class ModifActivity : AppCompatActivity() {
                     val minute = calendar.get(Calendar.MINUTE)
 
                     val picker = TimePickerDialog(pModif,
-                        { tp, sHour, sMinute ->
+                        { _, sHour, sMinute ->
                             endEditTex.setText("$sHour : $sMinute")
                         }, hour,minute,true)
                     picker.show()

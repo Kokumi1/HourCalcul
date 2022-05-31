@@ -2,6 +2,7 @@ package com.example.calculheure.service
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import java.text.SimpleDateFormat
@@ -38,14 +39,15 @@ class DataTalker(private val mContext: Context) {
             getWorksites(/*dateForm*/pDate),
             sp.getString(/*dateForm*/pDate + "type", "")!!
         )
+        Log.println(Log.DEBUG,"getDate:", "Day Get:${day.dayType}")
         return day
     }
 
     private fun getWorksites(pDateForm: String): ArrayList<Worksite?>{
         val sp = getSharedPreferences()
 
-        val dateTimeForm = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        //val dateTimeForm = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.getDefault())
+        //val dateTimeForm = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val dateTimeForm = SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",Locale.ENGLISH)
         var i = 0
         val worksiteSize = sp.getInt(pDateForm + "worksite" + "size", 0)
         val worksites = ArrayList<Worksite?>()
@@ -58,14 +60,14 @@ class DataTalker(private val mContext: Context) {
             c1.time = dateTimeForm.parse(
                 sp.getString(
                     pDateForm + "worksite" + i + "begin",
-                    "12/12/2012 12:12"
+                    "Sat Feb 12 12:12:00 GMT+02:00 2022"
                 )!!
             )!!
             val c2 = Calendar.getInstance()
             c2.time = dateTimeForm.parse(
                 sp.getString(
                     pDateForm + "worksite" + i + "end",
-                    "12/12/2012 12:12"
+                    "Sat Feb 12 12:12:00 GMT+02:00 2022"
                 )!!
             )!!
             worksites.add(
@@ -87,8 +89,10 @@ class DataTalker(private val mContext: Context) {
 
     fun saveDay(pDay: Day): Boolean{
         val editor: SharedPreferences.Editor = getSharedPreferences().edit()
-        val dateForm = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(pDay.date)
+        //val dateForm = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(pDay.date)
         val dateTimeForm = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val dateForm = "12/02/2022"
+        //val dateForm= dateTimeForm.format(pDay.date)
 
         editor.putString(dateForm+"date",dateForm)
         editor.putInt(dateForm+"travel",pDay.travel)
@@ -117,6 +121,7 @@ class DataTalker(private val mContext: Context) {
         }
         return try {
             editor.apply()
+            Log.println(Log.DEBUG,"SaveDate:","Date Saved")
             true
         }catch (e : Exception){
             e.printStackTrace()

@@ -14,9 +14,9 @@ class ModifViewModel : ViewModel() {
 
     private var mDay: MutableLiveData<Day> = MutableLiveData()
 
-    fun getDay(): LiveData<Day>{
+    fun getDay(pContext: Context): LiveData<Day>{
         if(mDay.value == null){
-            retrieveDay()
+            retrieveDay(pContext)
         }
 
         return mDay
@@ -28,7 +28,7 @@ class ModifViewModel : ViewModel() {
         dataTalker.saveDay(pDay)
     }
 
-    private fun retrieveDay(){
+    /*private fun retrieveDay(){
         val c1 = Calendar.getInstance()
         val c2 = Calendar.getInstance()
         val dateAM = Date(2022,3,10,9,0)
@@ -42,6 +42,13 @@ class ModifViewModel : ViewModel() {
         val day = Day(
             Date(2022,1,10,9,0),1,1,"test",
             workList)
+
+        mDay.postValue(day)
+    }*/
+    private fun retrieveDay(pContext: Context) {
+        val dataTalk = DataTalker(pContext)
+
+        val day = dataTalk.getDay("12/02/2022")
 
         mDay.postValue(day)
     }

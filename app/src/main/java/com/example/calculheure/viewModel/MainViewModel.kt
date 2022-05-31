@@ -46,7 +46,7 @@ class MainViewModel : ViewModel() {
         val dataTalk = DataTalker(pContext)
 
         //val day = dataTalk.getDay(Date(2022,2,10))
-        val day = dataTalk.getDay("10/03/2022")
+        val day = dataTalk.getDay("12/02/2022")
         val list = ArrayList<Day>()
         list.add(day)
 
