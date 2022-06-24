@@ -6,6 +6,7 @@ import android.util.Log
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import java.text.SimpleDateFormat
+import java.time.Month
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -15,12 +16,72 @@ class DataTalker(private val mContext: Context) {
         return mContext.getSharedPreferences("" , Context.MODE_PRIVATE)
     }
 
-    fun getMonthDays(){
+    fun getMonthDays(pDate: String): ArrayList<Day>{
 
+        val days = ArrayList<Day>()
+        val dayCalendar = Calendar.getInstance()
+        dayCalendar.time = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(pDate) as Date
+        val month= dayCalendar.get(Calendar.MONTH)
+        val year = dayCalendar.get(Calendar.YEAR)
+
+        var i = 1
+        while(i < dayCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
+            if(i<10) days.add(getDay("0$i/$month/$year"))
+
+            else days.add(getDay("$i/$month/$year"))
+
+            i++
+        }
+
+        return days
     }
 
-    fun getWeekDays(){
+    fun getWeekDays(pDate: String): ArrayList<Day>{
 
+        val days = ArrayList<Day>()
+        val dayCalendar = Calendar.getInstance()
+        dayCalendar.time = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(pDate) as Date
+        var dayOfWeek = 0
+        val copyDay = dayOfWeek
+
+        when (dayCalendar.get(Calendar.DAY_OF_WEEK)){
+            Calendar.MONDAY -> dayOfWeek = 1
+            Calendar.TUESDAY -> dayOfWeek = 2
+            Calendar.WEDNESDAY -> dayOfWeek = 3
+            Calendar.THURSDAY -> dayOfWeek = 4
+            Calendar.FRIDAY -> dayOfWeek = 5
+            Calendar.SATURDAY -> dayOfWeek = 6
+            Calendar.SUNDAY -> dayOfWeek = 7
+        }
+
+        // Days before
+        var i = 0
+        while (dayOfWeek > 0){
+            dayOfWeek--
+            i++
+
+            val seekedDay = dayCalendar.get(Calendar.DAY_OF_YEAR) - i
+            days.add(getDay(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
+                Date(dayCalendar.get(Calendar.YEAR),dayCalendar.get(Calendar.MONTH),seekedDay)
+            )))
+        }
+        // Today
+        days.add(getDay(pDate))
+        dayOfWeek = copyDay
+
+        // Days after
+        var j=0
+        while (dayOfWeek < 8){
+            dayOfWeek++
+            j--
+
+            val seekedDay = dayCalendar.get(Calendar.DAY_OF_YEAR) - j
+            days.add(getDay(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
+                Date(dayCalendar.get(Calendar.YEAR),dayCalendar.get(Calendar.MONTH),seekedDay)
+            )))
+        }
+
+        return days
     }
 
     //fun getDay(pDate: Date): Day {

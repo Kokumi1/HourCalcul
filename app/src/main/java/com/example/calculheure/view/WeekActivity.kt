@@ -73,7 +73,7 @@ class WeekActivity : AppCompatActivity() {
         //RecyclerView
         weekRecyclerView = findViewById(R.id.week_recycler)
         weekRecyclerView.adapter = WeekRecycler(data,this)
-        weekViewModel.getDays().observe(this){
+        weekViewModel.getDays(this).observe(this){
             kotlin.run {
                 data.clear()
                 data.addAll(it)

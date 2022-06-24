@@ -43,7 +43,7 @@ class MonthActivity : AppCompatActivity() {
         //View Model
         monthViewModel = ViewModelProvider(this).get(MonthViewModel::class.java)
         val data : ArrayList<Day> = ArrayList()
-        monthViewModel.getDay().observe(this){
+        monthViewModel.getDay(this).observe(this){
             kotlin.run{
                 data.clear()
                 data.addAll(it)
