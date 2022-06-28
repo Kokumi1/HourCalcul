@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/drawable/border.xml" value="0.182" />
+        <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout-land/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout-land/activity_modif.xml" value="0.30952380952380953" />
+        <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout-land/activity_month.xml" value="0.23493975903614459" />
+        <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout-land/activity_week.xml" value="0.25" />
+        <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout-land/month_cell.xml" value="0.3106796116504854" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/activity_main.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/activity_modif.xml" value="0.25" />
-        <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/activity_month.xml" value="0.27717391304347827" />
+        <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/activity_month.xml" value="0.33" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/activity_week.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/modif_cell.xml" value="0.33" />
         <entry key="..\:/Users/Florian/AndroidStudioProjects/Calculheure/app/src/main/res/layout/month_cell.xml" value="0.27717391304347827" />

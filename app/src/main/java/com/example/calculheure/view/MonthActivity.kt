@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 
 class MonthActivity : AppCompatActivity() {
 
-    private lateinit var monthCalendar: Calendar
+    private lateinit var monthCalendar: Calendar //TODO: add this
     private lateinit var totalTextView: TextView
     private lateinit var additionalTextView: TextView
     private lateinit var weekButton: Button

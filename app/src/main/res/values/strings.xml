@@ -19,6 +19,10 @@
     <string name="month_additional">Additional Hour:</string>
     <string name="month_button">Actual Week</string>
 
+    <string name="month_cell_date">du 01 au 07</string>
+    <string name="month_cell_total">Total Hour:</string>
+    <string name="month_cell_additional">additional Hour:</string>
+
     <string name="week_total">Total</string>
     <string name="week_week">Week</string>
     <string name="week_left_arrow">previous button</string>

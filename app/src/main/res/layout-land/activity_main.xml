@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+    <TextView
+        android:id="@+id/main_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_result"
+        android:layout_margin="10dp"
+        android:layout_below="@id/main_toolbar"/>
+
+    <Button
+        android:id="@+id/main_current_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/main_toolbar"
+        android:text="@string/main_button_month"
+        tools:ignore="RelativeOverlap" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/main_result"/>
+
+    <TextView
+        android:id="@+id/main_total_hour_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_recycler"
+        android:layout_margin="10dp"
+        android:text="@string/main_total_hour"
+        />
+
+    <TextView
+        android:id="@+id/main_total_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_zero"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/main_recycler"
+        android:layout_toEndOf="@id/main_total_hour_text"
+        />
+
+    <TextView
+        android:id="@+id/main_sup_hour_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_recycler"
+        android:layout_toStartOf="@id/main_sup_hour"
+        android:layout_marginTop="10dp"
+        android:text="@string/main_additional_hour"
+        />
+
+    <TextView
+        android:id="@+id/main_sup_hour"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:text="@string/general_zero"
+        android:layout_margin="10dp"
+        android:layout_below="@id/main_recycler"
+        android:layout_alignParentEnd="true"
+        />
+
+    <Button
+        android:id="@+id/main_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/main_today"
+        />
+
+    <Button
+        android:id="@+id/main_current_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/main_current_week"
+        tools:ignore="RelativeOverlap" />
+
+</RelativeLayout>
