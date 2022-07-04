@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 data.clear()
                 data.addAll(it)
                 recyclerView.adapter!!.notifyDataSetChanged()
+                showData(data)
             }
         }
         //Toolbar
@@ -101,6 +102,20 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+
+    private fun showData(pDays : List<Day>){
+        var totalH = 0
+        var supH = 0
+
+        for(day in pDays){
+            totalH += day.workTime()
+            if(day.workTime() > 7) supH += day.workTime()-7
+        }
+
+        totalHourTextView.text = totalH.toString()
+        supHourTextView.text = supH.toString()
     }
 }
 

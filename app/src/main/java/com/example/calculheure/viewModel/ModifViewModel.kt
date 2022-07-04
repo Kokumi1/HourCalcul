@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import com.example.calculheure.service.DataTalker
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,8 +48,11 @@ class ModifViewModel : ViewModel() {
     }*/
     private fun retrieveDay(pContext: Context) {
         val dataTalk = DataTalker(pContext)
+        val c = Calendar.getInstance()
+        val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
 
-        val day = dataTalk.getDay("12/02/2022")
+        //val day = dataTalk.getDay("12/02/2022")
+        val day = dataTalk.getDay(dateTimeForm.format(c.time))
 
         mDay.postValue(day)
     }

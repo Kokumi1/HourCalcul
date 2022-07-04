@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
@@ -15,6 +16,8 @@ import com.example.calculheure.R
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import com.example.calculheure.viewModel.ModifViewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -40,32 +43,37 @@ class ModifActivity : AppCompatActivity() {
         roadEditText = findViewById(R.id.modif_road)
         loadEditText = findViewById(R.id.modif_load)
 
+
+        //RecyclerView
+        recyclerView = findViewById(R.id.modif_recycler)
+        val modifAdapter = ModifAdapter(worksiteList,this)
+        recyclerView.adapter = modifAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
         //View Model
         mModifViewModel = ViewModelProvider(this).get(ModifViewModel::class.java)
         lateinit var data : Day
         mModifViewModel.getDay(this).observe(this){
             kotlin.run {
                 data = it
-                worksiteList = data.worksite
-                recyclerView.adapter!!.notifyDataSetChanged()
-                dayTextView.text = data.date.toString()
-                roadEditText.setText(data.travel.toString())
-                loadEditText.setText(data.loading.toString())
+                worksiteList = it.worksite
+                modifAdapter.notifyDataSetChanged()
+                modifAdapter.resetWorksite(worksiteList)
+                Log.d("recycler","data changed ${data.worksite.size}")
+                dayTextView.text = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault()).format(it.date)
+                roadEditText.setText(it.travel.toString())
+                loadEditText.setText(it.loading.toString())
             }
         }
         //Button
         validButton = findViewById(R.id.modif_confirm)
         validButton.setOnClickListener {
+            data.loading = loadEditText.text.toString().toInt()
+            data.travel = roadEditText.text.toString().toInt()
             mModifViewModel.setDay(data,this)
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
-
-        //RecyclerView
-        recyclerView = findViewById(R.id.modif_recycler)
-        recyclerView.adapter = ModifAdapter(worksiteList, this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
 
         //Toolbar
         toolbar = findViewById(R.id.modif_toolbar)
@@ -74,6 +82,9 @@ class ModifActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    /**
+     * toolbar
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar,menu)
         //menu?.getItem(R.id.toolbar_today)?.isVisible = false
@@ -97,25 +108,42 @@ class ModifActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * save a worksite
+     */
     fun saveNewWorksite(pWorksite: Worksite){
         worksiteList.add(pWorksite)
         Toast.makeText(this,"Worksite Save",Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * save a existing worksite
+     */
     fun saveEditWorksite(pWorksite: Worksite,pWorksiteEdit: Worksite){
         worksiteList.remove(pWorksite)
         worksiteList.add(pWorksiteEdit)
         Toast.makeText(this,"Worksite Save",Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * delete a existing worksite
+     */
     fun deleteWorksite(pWorksite: Worksite){
         worksiteList.remove(pWorksite)
     }
 
+
+
+
     /**
      * Adapter of RecyclerView
      */
- class ModifAdapter(private val worksiteList: ArrayList<Worksite?>,val pModifActivity: ModifActivity) : RecyclerView.Adapter<ModifAdapter.ModifViewHolder>(){
+ class ModifAdapter(private var worksiteList: ArrayList<Worksite?>, private val pModifActivity: ModifActivity) : RecyclerView.Adapter<ModifAdapter.ModifViewHolder>(){
+
+        var listWorksite = worksiteList.size
+        init {
+            listWorksite += 1
+        }
 
      override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModifViewHolder {
          worksiteList.add(null)
@@ -133,8 +161,16 @@ class ModifActivity : AppCompatActivity() {
      }
 
      override fun getItemCount(): Int {
-         return worksiteList.count()+1
+         Log.d("recycler","actual size: $listWorksite real size: ${worksiteList.size}")
+         return listWorksite
      }
+
+        public fun resetWorksite( pWorksiteList: ArrayList<Worksite?>){
+            this.worksiteList = pWorksiteList
+            listWorksite = worksiteList.size + 1
+        }
+
+
 
         /**
          * ViewHolder of the RecyclerView Cell
@@ -147,7 +183,7 @@ class ModifActivity : AppCompatActivity() {
          private val morningEditText = view.findViewById<EditText>(R.id.modif_cell_morning)
          private val afternoonEditText = view.findViewById<EditText>(R.id.modif_cell_afternoon)
          private val beginEditText = view.findViewById<EditText>(R.id.modif_cell_begin_hour)
-         private val endEditTex = view.findViewById<EditText>(R.id.modif_cell_end_hour)
+         private val endEditText = view.findViewById<EditText>(R.id.modif_cell_end_hour)
          private val validButton = view.findViewById<ImageButton>(R.id.modif_cell_valid)
          private val eraseButton = view.findViewById<ImageButton>(R.id.modif_cell_erase)
 
@@ -157,13 +193,14 @@ class ModifActivity : AppCompatActivity() {
             @SuppressLint("SetTextI18n")
             fun display(pWorksite: Worksite?){
                 if(pWorksite != null) {
-                    worksiteEditText.setText(pWorksite.id)
+                    Log.d("recycler view holder","worksite show: no${pWorksite.id}")
+                    worksiteEditText.setText(pWorksite.id.toString())
                     cityEditText.setText(pWorksite.city)
                     workEditText.setText(pWorksite.work)
-                    morningEditText.setText(pWorksite.aM)
-                    afternoonEditText.setText(pWorksite.pM)
-                    beginEditText.setText(pWorksite.beginHour.get(Calendar.HOUR_OF_DAY))
-                    endEditTex.setText(pWorksite.endHour.get(Calendar.HOUR_OF_DAY))
+                    morningEditText.setText(pWorksite.aM.toString())
+                    afternoonEditText.setText(pWorksite.pM.toString())
+                    beginEditText.setText(pWorksite.beginHour.get(Calendar.HOUR_OF_DAY).toString())
+                    endEditText.setText(pWorksite.endHour.get(Calendar.HOUR_OF_DAY).toString())
 
                     eraseButton.setOnClickListener { eraseWorksite(pWorksite) }
                 }
@@ -184,24 +221,25 @@ class ModifActivity : AppCompatActivity() {
                     picker.show()
                 }
 
-                endEditTex.setOnClickListener {
+                endEditText.setOnClickListener {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR_OF_DAY)
                     val minute = calendar.get(Calendar.MINUTE)
 
                     val picker = TimePickerDialog(pModif,
                         { _, sHour, sMinute ->
-                            endEditTex.setText("$sHour : $sMinute")
+                            endEditText.setText("$sHour : $sMinute")
                         }, hour,minute,true)
                     picker.show()
                 }
             }
+
             /**
              * save the edit
              */
             private fun saveWorksite(new : Boolean, pOriginal: Worksite? = null){
                  val partsBegin = beginEditText.text.toString().split(" : ")
-                 val partsEnd = endEditTex.text.toString().split(" : ")
+                 val partsEnd = endEditText.text.toString().split(" : ")
 
                  val beginCalendar = Calendar.getInstance()
                  val endCalendar = Calendar.getInstance()
@@ -220,12 +258,14 @@ class ModifActivity : AppCompatActivity() {
                      beginCalendar,
                      endCalendar
                  )
+
              if(new){
                 pModif.saveNewWorksite(worksite)
              } else{
                  pModif.saveEditWorksite(pOriginal!!,worksite)
              }
             }
+
             /**
              * Delete Worksite
              */

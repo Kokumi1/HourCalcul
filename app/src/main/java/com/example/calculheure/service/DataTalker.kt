@@ -21,7 +21,7 @@ class DataTalker(private val mContext: Context) {
         val days = ArrayList<Day>()
         val dayCalendar = Calendar.getInstance()
         dayCalendar.time = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(pDate) as Date
-        val month= dayCalendar.get(Calendar.MONTH)
+        val month= dayCalendar.get(Calendar.MONTH)+1
         val year = dayCalendar.get(Calendar.YEAR)
 
         var i = 1
@@ -100,7 +100,7 @@ class DataTalker(private val mContext: Context) {
             getWorksites(/*dateForm*/pDate),
             sp.getString(/*dateForm*/pDate + "type", "")!!
         )
-        Log.println(Log.DEBUG,"getDate:", "Day Get:${day.dayType}")
+        Log.println(Log.DEBUG,"getDate:", "$pDate Day Get:${day.dayType}")
         return day
     }
 
@@ -151,9 +151,9 @@ class DataTalker(private val mContext: Context) {
     fun saveDay(pDay: Day): Boolean{
         val editor: SharedPreferences.Editor = getSharedPreferences().edit()
         //val dateForm = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(pDay.date)
-        val dateTimeForm = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        val dateForm = "12/02/2022"
-        //val dateForm= dateTimeForm.format(pDay.date)
+        val dateTimeForm = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        //val dateForm = "12/02/2022"
+        val dateForm= dateTimeForm.format(pDay.date)
 
         editor.putString(dateForm+"date",dateForm)
         editor.putInt(dateForm+"travel",pDay.travel)

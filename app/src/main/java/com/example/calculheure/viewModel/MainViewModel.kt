@@ -1,12 +1,14 @@
 package com.example.calculheure.viewModel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import com.example.calculheure.service.DataTalker
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -44,12 +46,16 @@ class MainViewModel : ViewModel() {
 
     private fun retrieveDay(pContext: Context) {
         val dataTalk = DataTalker(pContext)
+        val c = Calendar.getInstance()
+        val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
 
         //val day = dataTalk.getDay(Date(2022,2,10))
-        val day = dataTalk.getDay("12/02/2022")
-        val list = ArrayList<Day>()
-        list.add(day)
+        //val day = dataTalk.getDay("12/02/2022")
+        Log.d("main retrieve day: ","date looking: ${dateTimeForm.format(c.time)}")
+        val days = dataTalk.getMonthDays(dateTimeForm.format(c.time))
+        //val list = ArrayList<Day>()
+        //list.add(day)
 
-        mDays.postValue(list)
+        mDays.postValue(days)
     }
 }
