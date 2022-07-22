@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
@@ -42,13 +43,15 @@ class MainActivity : AppCompatActivity() {
 
         //RecyclerView
         recyclerView = findViewById(R.id.main_recycler)
-        recyclerView.adapter = MonthRecycler(data as ArrayList<Day>,this)
+        val adapter = MonthRecycler(daysToWeek(data as ArrayList<Day>),data, this)
+        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         mMainViewModel.getDays(this).observe(this) {
             kotlin.run {
                 data.clear()
                 data.addAll(it)
-                recyclerView.adapter!!.notifyDataSetChanged()
+                adapter.resetDays(daysToWeek(data)!!,data)
+                adapter.notifyDataSetChanged()
                 showData(data)
             }
         }
@@ -104,6 +107,52 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    private fun daysToWeek(pDays: ArrayList<Day>?) : Array<IntArray>?{
+        if(pDays != null) {
+            var noWeek = 0
+            val weeks = Array(5) { IntArray(2) }
+            var firstDay: Date? = null
+
+            for (day: Day in pDays) {
+                val c = Calendar.getInstance()
+                c.time = day.date
+
+
+                when (c.get(Calendar.DAY_OF_WEEK)) {
+                    Calendar.MONDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
+                        day.date
+
+                    Calendar.TUESDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
+                        day.date
+
+                    Calendar.WEDNESDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
+                        day.date
+
+                    Calendar.THURSDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
+                        day.date
+
+                    Calendar.FRIDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
+                        day.date
+
+                    Calendar.SATURDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
+                        day.date
+
+                    Calendar.SUNDAY -> {
+                        if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
+
+                        if(firstDay == null){firstDay = Date(c.time.year,c.time.month,1)
+                        Log.d("firstday","no first day")}
+                        weeks[noWeek] = intArrayOf(firstDay.date, day.date.date)
+                        Log.d("weeks","week: ${firstDay.date} to ${day.date.date}")
+                        noWeek++
+
+                    }
+                }
+            }
+            return weeks
+        } else return null
+    }
+
 
     private fun showData(pDays : List<Day>){
         var totalH = 0
@@ -122,40 +171,12 @@ class MainActivity : AppCompatActivity() {
 /**
  * recycler View Adapter
  */
-class MonthRecycler(private val pDays : ArrayList<Day>?,private val pContext: Context) : RecyclerView.Adapter<MonthRecycler.MonthHolder>(){
-    private var weeks = Array(5) { IntArray(2) }
-
-    init {
-        var noWeek = 0
-        var firstDay: Date? = null
-        for( day: Day in pDays!!){
-            val c = Calendar.getInstance()
-            c.time = day.date
+class MonthRecycler(private var pWeeks : Array<IntArray>?, private var pDays: ArrayList<Day>?,private val pContext: Context) : RecyclerView.Adapter<MonthRecycler.MonthHolder>(){
 
 
-            when(c.get(Calendar.DAY_OF_WEEK)){
-                Calendar.MONDAY -> if(c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                Calendar.TUESDAY ->if(c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                Calendar.WEDNESDAY ->if(c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                Calendar.THURSDAY ->if(c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                Calendar.FRIDAY->if(c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                Calendar.SATURDAY->if(c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                Calendar.SUNDAY->{
-                    if(c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                    weeks[noWeek] = intArrayOf(firstDay!!.day,day.date.day)
-                    noWeek++
-
-                }
-
-            }
-        }
+    fun resetDays(pWeeks: Array<IntArray>, pDays: ArrayList<Day>){
+        this.pWeeks = pWeeks
+        this.pDays = pDays
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthHolder {
@@ -167,19 +188,21 @@ class MonthRecycler(private val pDays : ArrayList<Day>?,private val pContext: Co
     override fun onBindViewHolder(holder: MonthHolder, position: Int) {
         var totalHour = 0
         var addHour = 0
-        if(pDays != null && pDays.size != 0) {
-            for (i in weeks[position][0]..weeks[position][1]) {
-                totalHour += pDays[i].workTime()
-                if (pDays[i].workTime() > 7) addHour += pDays[i].workTime() - 7
+        if(pDays != null && pDays!!.size != 0 && pWeeks != null) {
+            for (i in pWeeks!![position][0]..pWeeks!![position][1]) {
+                totalHour += pDays!![i].workTime()
+                if (pDays!![i].workTime() > 7) addHour += pDays!![i].workTime() - 7
             }
-            holder.display(
-                pDays[weeks[position][0]].date, totalHour, addHour, pContext
-            )
+            if(pWeeks!![position][0] > 0){
+                holder.display(
+                    pDays!![pWeeks!![position][0]-1].date, pDays!![pWeeks!![position][1]-1].date, totalHour, addHour, pContext
+                )
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        return weeks.size
+        return pWeeks!!.size
     }
 
     /**
@@ -194,8 +217,12 @@ class MonthRecycler(private val pDays : ArrayList<Day>?,private val pContext: Co
         /**
          * display data in cell
          */
-        fun display(pBeginDay: Date, pTotalHour: Int, pAddHour: Int, pContext: Context){
-            dateTextView.text = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(pBeginDay.time)
+        fun display(pBeginDay: Date, pEndDay: Date, pTotalHour: Int, pAddHour: Int, pContext: Context){
+            //dateTextView.text = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(pBeginDay.time)
+            dateTextView.text = StringBuilder(SimpleDateFormat(
+                "dd", Locale.getDefault()).format(pBeginDay) + " to "
+                    + SimpleDateFormat("dd/MM/yyyy",Locale.getDefault()).format(pEndDay))
+
             totalTextView.text =StringBuilder(pContext.getString(R.string.main_total_hour)+pTotalHour)
             additionalTextView.text = StringBuilder(pContext.getString(R.string.main_additional_hour)+pAddHour)
         }

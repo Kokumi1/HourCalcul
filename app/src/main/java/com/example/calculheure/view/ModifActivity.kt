@@ -165,7 +165,7 @@ class ModifActivity : AppCompatActivity() {
          return listWorksite
      }
 
-        public fun resetWorksite( pWorksiteList: ArrayList<Worksite?>){
+        fun resetWorksite( pWorksiteList: ArrayList<Worksite?>){
             this.worksiteList = pWorksiteList
             listWorksite = worksiteList.size + 1
         }

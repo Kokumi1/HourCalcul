@@ -26,9 +26,13 @@ class DataTalker(private val mContext: Context) {
 
         var i = 1
         while(i < dayCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
-            if(i<10) days.add(getDay("0$i/$month/$year"))
+            val seekDay = if(i<10) "0$i"
+            else "$i"
 
-            else days.add(getDay("$i/$month/$year"))
+            val seekMonth = if(month < 10) "0$month"
+            else "$month"
+
+            days.add(getDay("$seekDay/$seekMonth/$year"))
 
             i++
         }
@@ -100,7 +104,7 @@ class DataTalker(private val mContext: Context) {
             getWorksites(/*dateForm*/pDate),
             sp.getString(/*dateForm*/pDate + "type", "")!!
         )
-        Log.println(Log.DEBUG,"getDate:", "$pDate Day Get:${day.dayType}")
+        Log.println(Log.DEBUG,"getDate:", "$pDate Day Get:${day.worksite.size} worksite")
         return day
     }
 
