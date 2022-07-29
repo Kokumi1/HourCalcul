@@ -189,8 +189,8 @@ class MonthRecycler(private var pWeeks : Array<IntArray>?, private var pDays: Ar
         var totalHour = 0
         var addHour = 0
         if(pDays != null && pDays!!.size != 0 && pWeeks != null) {
-            for (i in pWeeks!![position][0]..pWeeks!![position][1]) {
-                totalHour += pDays!![i].workTime()
+            for (i in pWeeks!![position][0] until pWeeks!![position][1]) {
+                totalHour += pDays!![i-1].workTime()
                 if (pDays!![i].workTime() > 7) addHour += pDays!![i].workTime() - 7
             }
             if(pWeeks!![position][0] > 0){

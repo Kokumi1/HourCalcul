@@ -6,7 +6,6 @@ import android.util.Log
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import java.text.SimpleDateFormat
-import java.time.Month
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,7 +24,7 @@ class DataTalker(private val mContext: Context) {
         val year = dayCalendar.get(Calendar.YEAR)
 
         var i = 1
-        while(i < dayCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
+        while(i <= dayCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
             val seekDay = if(i<10) "0$i"
             else "$i"
 
