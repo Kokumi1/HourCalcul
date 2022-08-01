@@ -111,43 +111,30 @@ class MainActivity : AppCompatActivity() {
         if(pDays != null) {
             var noWeek = 0
             val weeks = Array(5) { IntArray(2) }
-            var firstDay: Date? = null
+            val firstDay = Calendar.getInstance()
 
             for (day: Day in pDays) {
                 val c = Calendar.getInstance()
                 c.time = day.date
 
 
-                when (c.get(Calendar.DAY_OF_WEEK)) {
-                    Calendar.MONDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
-                        day.date
+                if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay.time=
+                    day.date
 
-                    Calendar.TUESDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
-                        day.date
-
-                    Calendar.WEDNESDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
-                        day.date
-
-                    Calendar.THURSDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
-                        day.date
-
-                    Calendar.FRIDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
-                        day.date
-
-                    Calendar.SATURDAY -> if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay =
-                        day.date
-
-                    Calendar.SUNDAY -> {
-                        if (c.get(Calendar.DAY_OF_WEEK) == c.firstDayOfWeek) firstDay = day.date
-
-                        if(firstDay == null){firstDay = Date(c.time.year,c.time.month,1)
-                        Log.d("firstday","no first day")}
-                        weeks[noWeek] = intArrayOf(firstDay.date, day.date.date)
-                        Log.d("weeks","week: ${firstDay.date} to ${day.date.date}")
-                        noWeek++
-
+                if(c.getActualMaximum(Calendar.DATE) == c.get(Calendar.DAY_OF_MONTH)){
+                    weeks[noWeek] = intArrayOf(firstDay.get(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_MONTH))
+                    Log.d("weeks","week: ${firstDay.get(Calendar.DAY_OF_MONTH)} to ${c.get(Calendar.DAY_OF_MONTH)}")
+                    noWeek++
+                } else if(c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                    if(firstDay == Calendar.getInstance()){
+                        firstDay.set(c.get(Calendar.YEAR),c.get(Calendar.MONTH),1)
+                        Log.d("firstDay","no first day")
                     }
+                    weeks[noWeek] = intArrayOf(firstDay.get(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_MONTH))
+                    Log.d("weeks","week: ${firstDay.get(Calendar.DAY_OF_MONTH)} to ${c.get(Calendar.DAY_OF_MONTH)}")
+                    noWeek++
                 }
+
             }
             return weeks
         } else return null

@@ -168,7 +168,6 @@ class DataTalker(private val mContext: Context) {
         var i =0
 
         while(i<pDay.worksite.size){
-            System.err.println("begin: "+pDay.worksite[i]!!.beginHour+" end "+pDay.worksite[i]!!.endHour)
 
             editor.putInt(dateForm+"worksite"+i,pDay.worksite[i]!!.id)
             editor.putString(dateForm+"worksite"+i+"city",pDay.worksite[i]!!.city)
