@@ -16,7 +16,6 @@ import com.example.calculheure.R
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import com.example.calculheure.viewModel.ModifViewModel
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -70,9 +69,13 @@ class ModifActivity : AppCompatActivity() {
         validButton.setOnClickListener {
             data.loading = loadEditText.text.toString().toInt()
             data.travel = roadEditText.text.toString().toInt()
-            mModifViewModel.setDay(data,this)
-            val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
+            if(data.worksite.size != 0) {
+                mModifViewModel.setDay(data, this)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this,R.string.modif_empty_Work,Toast.LENGTH_LONG).show()
+            }
         }
 
         //Toolbar
@@ -131,9 +134,6 @@ class ModifActivity : AppCompatActivity() {
     fun deleteWorksite(pWorksite: Worksite){
         worksiteList.remove(pWorksite)
     }
-
-
-
 
     /**
      * Adapter of RecyclerView
@@ -215,7 +215,7 @@ class ModifActivity : AppCompatActivity() {
                     val minute = calendar.get(Calendar.MINUTE)
 
                     val picker = TimePickerDialog(pModif,
-                        { tp, sHour, sMinute ->
+                        { _, sHour, sMinute ->
                             beginEditText.setText("$sHour : $sMinute")
                         }, hour,minute,true)
                     picker.show()

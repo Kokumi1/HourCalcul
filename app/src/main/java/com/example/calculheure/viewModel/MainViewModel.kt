@@ -46,13 +46,17 @@ class MainViewModel : ViewModel() {
 
     private fun retrieveDay(pContext: Context) {
         val dataTalk = DataTalker(pContext)
-        val c = Calendar.getInstance()
+        /*val c = Calendar.getInstance()
         val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
 
-        //val day = dataTalk.getDay(Date(2022,2,10))
-        //val day = dataTalk.getDay("12/02/2022")
-        Log.d("main retrieve day: ","date looking: ${dateTimeForm.format(c.time)}")
-        val days = dataTalk.getMonthDays(dateTimeForm.format(c.time))
+        val day = dataTalk.getDay(Date(2022,2,10))
+        val day = dataTalk.getDay("12/02/2022")*/
+        Log.d("main retrieve day: ","date looking: " +
+                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            .format(Calendar.getInstance().time)
+        )
+        val days = dataTalk.getMonthDays(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            .format(Calendar.getInstance().time))
         //val list = ArrayList<Day>()
         //list.add(day)
 

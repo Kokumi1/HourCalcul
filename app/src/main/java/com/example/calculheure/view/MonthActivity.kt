@@ -3,9 +3,11 @@ package com.example.calculheure.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.CalendarView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +19,7 @@ import kotlin.collections.ArrayList
 
 class MonthActivity : AppCompatActivity() {
 
-    private lateinit var monthCalendar: Calendar //TODO: add this
+    private lateinit var monthCalendar: CalendarView
     private lateinit var totalTextView: TextView
     private lateinit var additionalTextView: TextView
     private lateinit var weekButton: Button
@@ -43,11 +45,28 @@ class MonthActivity : AppCompatActivity() {
         //View Model
         monthViewModel = ViewModelProvider(this).get(MonthViewModel::class.java)
         val data : ArrayList<Day> = ArrayList()
-        monthViewModel.getDay(this).observe(this){
+        monthViewModel.getDay(this, Calendar.getInstance()).observe(this){
             kotlin.run{
                 data.clear()
                 data.addAll(it)
                 showData(data)
+            }
+        }
+
+        //Calendar
+        monthCalendar = findViewById(R.id.month_calendar)
+        monthCalendar.setOnDateChangeListener { _, pYear, pMonth, pDay ->
+            val date = Calendar.getInstance()
+            date.set(pYear,pMonth,pDay)
+            Log.d("monthActivity","date set: $pDay / $pMonth / $pYear")
+
+
+            monthViewModel.getDay(this, date).observe(this){
+                kotlin.run {
+                    data.clear()
+                    data.addAll(it)
+                    showData(data)
+                }
             }
         }
 
@@ -63,8 +82,8 @@ class MonthActivity : AppCompatActivity() {
             total+= day.workTime()
             if(day.workTime() > 7) additional+=day.workTime()-7
         }
-        totalTextView.text = total.toString()
-        additionalTextView.text = additional.toString()
+        totalTextView.text = StringBuilder("${resources.getString(R.string.month_total)} $total H")
+        additionalTextView.text = StringBuilder( "${resources.getString(R.string.month_additional)} $additional H")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -13,6 +13,7 @@
     <string name="modif_road">Road:</string>
     <string name="modif_load">Load:</string>
     <string name="modif_confirm">Confirm</string>
+    <string name="modif_empty_Work">Please register a work of this day</string>
 
     <string name="month_result">Balance Sheet</string>
     <string name="month_total">Total Hour:</string>
