@@ -154,7 +154,8 @@ class ModifActivity : AppCompatActivity() {
      }
 
      override fun onBindViewHolder(holder: ModifViewHolder, position: Int) {
-         holder.display(worksiteList[position])
+         //holder.display(worksiteList[position])
+         if(worksiteList.size > 0) holder.display(worksiteList[position])
          if(worksiteList.lastIndex == position){
              holder.display(null)
          }

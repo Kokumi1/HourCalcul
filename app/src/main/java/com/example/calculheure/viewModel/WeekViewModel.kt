@@ -1,11 +1,13 @@
 package com.example.calculheure.viewModel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.calculheure.model.Day
 import com.example.calculheure.model.Worksite
 import com.example.calculheure.service.DataTalker
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -44,8 +46,12 @@ class WeekViewModel : ViewModel() {
     private fun retrieveDays(pContext: Context){
         val dataTalk = DataTalker(pContext)
 
-        val day = dataTalk.getWeekDays("12/02/2022")
+        val today = Calendar.getInstance()
+        Log.d("weekView","selected date: ${today.time}")
+        val days = dataTalk.getWeekDays(
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).
+        format(today.time))
 
-        mDays.postValue(day)
+        mDays.postValue(days)
     }
 }

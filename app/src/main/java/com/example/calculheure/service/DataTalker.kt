@@ -45,7 +45,7 @@ class DataTalker(private val mContext: Context) {
         val dayCalendar = Calendar.getInstance()
         dayCalendar.time = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(pDate) as Date
         var dayOfWeek = 0
-        val copyDay = dayOfWeek
+
 
         when (dayCalendar.get(Calendar.DAY_OF_WEEK)){
             Calendar.MONDAY -> dayOfWeek = 1
@@ -56,33 +56,45 @@ class DataTalker(private val mContext: Context) {
             Calendar.SATURDAY -> dayOfWeek = 6
             Calendar.SUNDAY -> dayOfWeek = 7
         }
+        val copyDay = dayOfWeek
 
-        // Days before
-        var i = 0
-        while (dayOfWeek > 0){
-            dayOfWeek--
-            i++
 
-            val seekedDay = dayCalendar.get(Calendar.DAY_OF_YEAR) - i
+
+        // Days after
+        var j=0
+        while (dayOfWeek < 7){
+            dayOfWeek++
+            j++
+
+            val seekedDay = dayCalendar.get(Calendar.DAY_OF_MONTH) + j
+            val c = Calendar.getInstance()
+                c.set(dayCalendar.get(Calendar.YEAR),dayCalendar.get(Calendar.MONTH),seekedDay)
+
             days.add(getDay(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
-                Date(dayCalendar.get(Calendar.YEAR),dayCalendar.get(Calendar.MONTH),seekedDay)
-            )))
+                c.time)
+            ))
         }
+
         // Today
         days.add(getDay(pDate))
         dayOfWeek = copyDay
 
-        // Days after
-        var j=0
-        while (dayOfWeek < 8){
-            dayOfWeek++
-            j--
+        // Days before
+        var i = 0
+        while (dayOfWeek > 1){
+            dayOfWeek--
+            i++
 
-            val seekedDay = dayCalendar.get(Calendar.DAY_OF_YEAR) - j
+
+            val seekedDay = dayCalendar.get(Calendar.DAY_OF_MONTH) - i
+            val c = Calendar.getInstance()
+            c.set(dayCalendar.get(Calendar.YEAR),dayCalendar.get(Calendar.MONTH),seekedDay)
+
             days.add(getDay(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
-                Date(dayCalendar.get(Calendar.YEAR),dayCalendar.get(Calendar.MONTH),seekedDay)
+                c.time
             )))
         }
+
 
         return days
     }
