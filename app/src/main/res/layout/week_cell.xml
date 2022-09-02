@@ -6,21 +6,20 @@
 
     <TextView
         android:id="@+id/week_cell_day"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="@string/modif_day"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        />
+        android:text="@string/modif_day" />
 
     <TextView
         android:id="@+id/week_cell_break"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="@string/week_break"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/week_cell_day"/>
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@id/week_cell_day"
+        android:text="@string/week_break" />
 
     <TextView
         android:id="@+id/week_cell_hour"
@@ -33,29 +32,28 @@
 
     <TextView
         android:id="@+id/week_cell_road"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:text="@string/modif_road"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/week_cell_hour"/>
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@id/week_cell_hour"
+        android:text="@string/modif_road" />
 
     <TextView
         android:id="@+id/week_cell_load"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="@string/modif_load"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/week_cell_road"/>
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@id/week_cell_road"
+        android:text="@string/modif_load" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/week_cell_recycler"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:layout_below="@id/week_cell_day"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/week_cell_status"
@@ -64,7 +62,7 @@
         android:text="@string/week_status"
         android:textSize="30sp"
         android:layout_centerInParent="true"
-        android:visibility="gone"
+
         />
 
     <Button

@@ -15,9 +15,9 @@ class WeekViewModel : ViewModel() {
 
     private var mDays: MutableLiveData<List<Day>> = MutableLiveData()
 
-    fun getDays(pContext: Context): MutableLiveData<List<Day>>{
+    fun getDays(pContext: Context, pDate: Date): MutableLiveData<List<Day>>{
         //createDays()
-        retrieveDays(pContext)
+        retrieveDays(pContext, pDate)
         return mDays
     }
 
@@ -43,14 +43,14 @@ class WeekViewModel : ViewModel() {
 
     }
 
-    private fun retrieveDays(pContext: Context){
+    private fun retrieveDays(pContext: Context, pDate: Date){
         val dataTalk = DataTalker(pContext)
 
         val today = Calendar.getInstance()
-        Log.d("weekView","selected date: ${today.time}")
+        Log.d("weekView","selected date: $pDate")
         val days = dataTalk.getWeekDays(
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).
-        format(today.time))
+        format(pDate))
 
         mDays.postValue(days)
     }

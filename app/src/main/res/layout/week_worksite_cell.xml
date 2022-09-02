@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="200dp"
-    android:layout_height="100dp">
+    android:layout_height="60dp">
 
     <TextView
         android:id="@+id/week_worksite_worksite"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
         android:text="@string/week_worksite"
         />
 
@@ -16,7 +15,6 @@
         android:id="@+id/week_worksite_city"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:text="@string/modif_cell_city"
         android:layout_toEndOf="@id/week_worksite_worksite"
@@ -26,7 +24,6 @@
         android:id="@+id/week_worksite_work"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:text="@string/modif_cell_work"
         android:layout_toEndOf="@id/week_worksite_city"
@@ -36,7 +33,7 @@
         android:id="@+id/week_worksite_morning"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:text="@string/modif_cell_morning"
         android:layout_below="@id/week_worksite_worksite"
@@ -46,7 +43,7 @@
         android:id="@+id/week_worksite_afternoon"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:text="@string/modif_cell_afternoon"
         android:layout_toEndOf="@id/week_worksite_morning"

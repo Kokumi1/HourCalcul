@@ -64,7 +64,7 @@
 
     <TextView
         android:id="@+id/week_total"
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:text="@string/week_total"
         android:layout_below="@id/week_recycler"
@@ -74,7 +74,7 @@
 
     <TextView
         android:id="@+id/week_morning"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/week_morning"
         android:layout_below="@id/week_total"
@@ -84,7 +84,7 @@
 
     <TextView
         android:id="@+id/week_road"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/week_road"
         android:layout_below="@id/week_morning"
@@ -94,7 +94,7 @@
 
     <TextView
         android:id="@+id/week_break"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/week_break"
         android:layout_below="@id/week_road"
@@ -104,7 +104,7 @@
 
     <TextView
         android:id="@+id/week_totalhour"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/week_total_time"
         android:layout_below="@id/week_break"
@@ -114,7 +114,7 @@
 
     <TextView
         android:id="@+id/week_afternoon"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/week_afternoon"
         android:layout_below="@id/week_total"
@@ -125,7 +125,7 @@
 
     <TextView
         android:id="@+id/week_loading"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/week_loading"
         android:layout_below="@id/week_afternoon"
@@ -136,7 +136,7 @@
 
     <TextView
         android:id="@+id/week_additional"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/week_additional"
         android:layout_below="@id/week_loading"

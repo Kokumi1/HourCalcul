@@ -42,12 +42,12 @@
     <string name="week_fill">Fill</string>
 
     <string name="modif_cell_worksite">Worksite</string>
-    <string name="modif_cell_city">City</string>
-    <string name="modif_cell_work">Work</string>
-    <string name="modif_cell_morning">AM</string>
-    <string name="modif_cell_afternoon">PM</string>
-    <string name="modif_cell_begin_hour">Begin hour</string>
-    <string name="modif_cell_end_hour">End Hour</string>
+    <string name="modif_cell_city">City:</string>
+    <string name="modif_cell_work">Work:</string>
+    <string name="modif_cell_morning">AM:</string>
+    <string name="modif_cell_afternoon">PM:</string>
+    <string name="modif_cell_begin_hour">Begin hour:</string>
+    <string name="modif_cell_end_hour">End Hour:</string>
     <string name="modif_cell_valid">add Worksite</string>
     <string name="modif_cell_erase">delete existing worksite</string>
 
