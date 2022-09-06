@@ -30,6 +30,7 @@ class MonthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month)
 
+        //to week ways
         weekButton = findViewById(R.id.month_week_button)
         weekButton.setOnClickListener {
             val intent = Intent(this, WeekActivity::class.java)
@@ -53,14 +54,14 @@ class MonthActivity : AppCompatActivity() {
             }
         }
 
-        //Calendar
+        //CalendarView
         monthCalendar = findViewById(R.id.month_calendar)
         monthCalendar.setOnDateChangeListener { _, pYear, pMonth, pDay ->
             val date = Calendar.getInstance()
             date.set(pYear,pMonth,pDay)
             Log.d("monthActivity","date set: $pDay / $pMonth / $pYear")
 
-
+            //search data of selected month
             monthViewModel.getDay(this, date).observe(this){
                 kotlin.run {
                     data.clear()
@@ -74,6 +75,9 @@ class MonthActivity : AppCompatActivity() {
         additionalTextView = findViewById(R.id.month_additional_hour)
     }
 
+    /**
+     * show data from list of days to TextView
+     */
     private fun showData(pData : List<Day>){
         var total = 0
         var additional = 0
@@ -86,6 +90,9 @@ class MonthActivity : AppCompatActivity() {
         additionalTextView.text = StringBuilder( "${resources.getString(R.string.month_additional)} $additional H")
     }
 
+    /**
+     * Toolbar
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar,menu)
         return true

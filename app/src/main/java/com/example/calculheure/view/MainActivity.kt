@@ -84,11 +84,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Toolbar
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar,menu)
         return true
     }
 
+    /**
+     * add button of Toolbar
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.toolbar_home->{
@@ -102,11 +108,18 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    /**
+     * Back button action
+     */
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
 
+    /**
+     * Translate list of days to list of weeks
+     */
     private fun daysToWeek(pDays: ArrayList<Day>?) : Array<IntArray>?{
         if(pDays != null) {
             var noWeek = 0
@@ -140,7 +153,9 @@ class MainActivity : AppCompatActivity() {
         } else return null
     }
 
-
+    /**
+     * Show days data to TextView
+     */
     private fun showData(pDays : List<Day>){
         var totalH = 0
         var supH = 0
@@ -160,7 +175,9 @@ class MainActivity : AppCompatActivity() {
  */
 class MonthRecycler(private var pWeeks : Array<IntArray>?, private var pDays: ArrayList<Day>?,private val pContext: Context) : RecyclerView.Adapter<MonthRecycler.MonthHolder>(){
 
-
+    /**
+     * update data
+     */
     fun resetDays(pWeeks: Array<IntArray>, pDays: ArrayList<Day>){
         this.pWeeks = pWeeks
         this.pDays = pDays
@@ -172,6 +189,9 @@ class MonthRecycler(private var pWeeks : Array<IntArray>?, private var pDays: Ar
         return MonthHolder(view)
     }
 
+    /**
+     * display all days in week
+     */
     override fun onBindViewHolder(holder: MonthHolder, position: Int) {
         var totalHour = 0
         var addHour = 0

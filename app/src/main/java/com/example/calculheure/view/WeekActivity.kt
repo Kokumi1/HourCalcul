@@ -46,7 +46,6 @@ class WeekActivity : AppCompatActivity() {
         setContentView(R.layout.activity_week)
 
         //View Model
-        //val data : ArrayList<Day> = ArrayList()
         weekViewModel = ViewModelProvider(this).get(WeekViewModel::class.java)
         val date = Calendar.getInstance()
 
@@ -88,6 +87,9 @@ class WeekActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Get Days by ViewModel
+     */
     @SuppressLint("NotifyDataSetChanged")
     private fun viewModelGetDays(pDate: Calendar, pAdapter: WeekRecycler) {
         return weekViewModel.getDays(this,pDate.time).observe(this){
@@ -101,6 +103,9 @@ class WeekActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Show data from days to TextView
+     */
     private fun showData(pData : List<Day>){
         var totalHour= 0; var morning= 0; var afternoon= 0; var breakTime= 0; var road= 0
         var loading= 0; var additional = 0
@@ -112,6 +117,7 @@ class WeekActivity : AppCompatActivity() {
         weekTextView.text = StringBuilder("${firstDay.get(Calendar.DAY_OF_MONTH)}/${firstDay.get(Calendar.MONTH)+1} to " +
                 "${lastDay.get(Calendar.DAY_OF_MONTH)}/${lastDay.get(Calendar.MONTH)+1}/${lastDay.get(Calendar.YEAR)}")
 
+        //compute total loading and Road Hour
         for(day in pData){
             totalHour+=day.workTime()
             if(day.workTime() > 7) additional+=day.workTime()-7
@@ -134,6 +140,9 @@ class WeekActivity : AppCompatActivity() {
         additionalTextView.text = StringBuilder("${resources.getString(R.string.week_additional)} $additional H")
     }
 
+    /**
+     * Toolbar
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar,menu)
         return true
@@ -157,9 +166,14 @@ class WeekActivity : AppCompatActivity() {
         return true
     }
 
-
+    /**
+     * RecyclerView adapter of whole week
+     */
     class WeekRecycler(private var pData: List<Day>, private val pContext: Context) : RecyclerView.Adapter<WeekRecycler.WeekViewHolder>(){
 
+        /**
+         * update Data
+         */
         fun resetDays(pData: List<Day>){
             this.pData = pData
             Log.d("WeekRecycler","data reset: ${this.pData.size}")
@@ -208,6 +222,9 @@ class WeekActivity : AppCompatActivity() {
                     LinearLayoutManager(pContext,LinearLayoutManager.HORIZONTAL,false)
             }
 
+            /**
+             * display data from interface
+             */
             override fun displayTotalData(pBreakTime : Int){
                 breakTextView.text = pBreakTime.toString()
             }
@@ -215,7 +232,9 @@ class WeekActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * RecyclerView adapter of worksite of a day
+     */
     class WeekWorksiteRecycler(private val pData: List<Worksite?>, private val pWeekViewHolder: WeekRecycler.WeekViewHolder,
                                private val pContext: Context)
         : RecyclerView.Adapter<WeekWorksiteRecycler.WeekWorksiteViewHolder>(){
@@ -251,10 +270,13 @@ class WeekActivity : AppCompatActivity() {
                 afternoonTextView.text=StringBuilder("${pContext.resources.getString(R.string.modif_cell_afternoon)}  ${worksite.pM} H")
 
                 pWeekViewHolder.displayTotalData(worksite.breakTime)
-
             }
         }
     }
+
+    /**
+     * transfer breakTime data to week recycler view adapter
+     */
     private interface TransferData{
         fun displayTotalData(pBreakTime: Int)
     }

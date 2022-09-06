@@ -64,6 +64,7 @@ class ModifActivity : AppCompatActivity() {
                 loadEditText.setText(it.loading.toString())
             }
         }
+
         //Button
         validButton = findViewById(R.id.modif_confirm)
         validButton.setOnClickListener {
@@ -140,6 +141,9 @@ class ModifActivity : AppCompatActivity() {
      */
  class ModifAdapter(private var worksiteList: ArrayList<Worksite?>, private val pModifActivity: ModifActivity) : RecyclerView.Adapter<ModifAdapter.ModifViewHolder>(){
 
+        /**
+         * add empty worksite
+         */
         var listWorksite = worksiteList.size
         init {
             listWorksite += 1
@@ -154,8 +158,8 @@ class ModifActivity : AppCompatActivity() {
      }
 
      override fun onBindViewHolder(holder: ModifViewHolder, position: Int) {
-         //holder.display(worksiteList[position])
          if(worksiteList.size > 0) holder.display(worksiteList[position])
+         // add empty worksite
          if(worksiteList.lastIndex == position){
              holder.display(null)
          }

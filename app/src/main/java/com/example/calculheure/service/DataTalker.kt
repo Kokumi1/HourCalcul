@@ -11,10 +11,17 @@ import kotlin.collections.ArrayList
 
 class DataTalker(private val mContext: Context) {
 
+    /**
+     * get SharedPreferences
+     */
     private fun getSharedPreferences() : SharedPreferences{
-        return mContext.getSharedPreferences("" , Context.MODE_PRIVATE)
+        return mContext.getSharedPreferences("ComputeHour" , Context.MODE_PRIVATE)
     }
 
+    /**
+     * Get days data of a month
+     * pDate: String version of the desired date
+     */
     fun getMonthDays(pDate: String): ArrayList<Day>{
 
         val days = ArrayList<Day>()
@@ -39,6 +46,10 @@ class DataTalker(private val mContext: Context) {
         return days
     }
 
+    /**
+     * Get days data of a week
+     * pDate: String version of the desired date
+     */
     fun getWeekDays(pDate: String): ArrayList<Day>{
 
         val days = ArrayList<Day>()
@@ -99,37 +110,37 @@ class DataTalker(private val mContext: Context) {
         return days
     }
 
-    //fun getDay(pDate: Date): Day {
+    /**
+     * get data of a single day
+     * pDate: String version of the desired date
+     */
     fun getDay(pDate: String): Day{
         val sp = getSharedPreferences()
-        //val dateForm = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(pDate)
         val tempDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(pDate)
 
-        //return Day(
         val day = Day(
-            //pDate,
             tempDate!!,
-            sp.getInt(/*dateForm*/pDate + "travel", 0),
-            sp.getInt(/*dateForm*/pDate + "load", 0),
-            sp.getString(/*dateForm*/pDate + "work", "")!!,
-            getWorksites(/*dateForm*/pDate),
-            sp.getString(/*dateForm*/pDate + "type", "")!!
+            sp.getInt(pDate + "travel", 0),
+            sp.getInt(pDate + "load", 0),
+            sp.getString(pDate + "work", "")!!,
+            getWorksites(pDate),
+            sp.getString(pDate + "type", "")!!
         )
         Log.println(Log.DEBUG,"getDate:", "$pDate Day Get:${day.worksite.size} worksite")
         return day
     }
 
+    /**
+     * Get worksite data of a day
+     * pDateForm: String version of the desired date
+     */
     private fun getWorksites(pDateForm: String): ArrayList<Worksite?>{
         val sp = getSharedPreferences()
 
-        //val dateTimeForm = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
         val dateTimeForm = SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",Locale.ENGLISH)
         var i = 0
         val worksiteSize = sp.getInt(pDateForm + "worksite" + "size", 0)
         val worksites = ArrayList<Worksite?>()
-        val c0 = sp.getString(
-            pDateForm + "worksite" + i + "begin",
-            "12/12/2012 12:12")!!
 
         while (i < worksiteSize) {
             val c1 = Calendar.getInstance()
@@ -163,13 +174,16 @@ class DataTalker(private val mContext: Context) {
         return worksites
     }
 
+    /**
+     * Register a day to sharedPreferences
+     * pDay: day data to register
+     */
     fun saveDay(pDay: Day): Boolean{
         val editor: SharedPreferences.Editor = getSharedPreferences().edit()
-        //val dateForm = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(pDay.date)
         val dateTimeForm = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        //val dateForm = "12/02/2022"
         val dateForm= dateTimeForm.format(pDay.date)
 
+        //register day data
         editor.putString(dateForm+"date",dateForm)
         editor.putInt(dateForm+"travel",pDay.travel)
         editor.putInt(dateForm+"load",pDay.loading)
@@ -179,6 +193,7 @@ class DataTalker(private val mContext: Context) {
 
         var i =0
 
+        //register worksite data
         while(i<pDay.worksite.size){
 
             editor.putInt(dateForm+"worksite"+i,pDay.worksite[i]!!.id)
