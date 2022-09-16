@@ -27,14 +27,4 @@ class MonthViewModel :ViewModel() {
         mDays.postValue(days)
         return mDays
     }
-
-    private fun retrieveDays(pContext: Context, pDay: Calendar){
-        val dataTalk = DataTalker(pContext)
-
-        Log.d("monthView","selected date: ${pDay.time}")
-        val days = dataTalk.getMonthDays(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).
-        format(pDay.time))
-
-        mDays.postValue(days)
-    }
 }

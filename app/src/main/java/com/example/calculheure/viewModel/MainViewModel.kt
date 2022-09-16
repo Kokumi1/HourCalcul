@@ -30,17 +30,4 @@ class MainViewModel : ViewModel() {
         mDays.postValue(days)
         return mDays
     }
-
-    private fun retrieveDay(pContext: Context) {
-        val dataTalk = DataTalker(pContext)
-
-        Log.d("main retrieve day: ","date looking: " +
-                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            .format(Calendar.getInstance().time)
-        )
-        val days = dataTalk.getMonthDays(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            .format(Calendar.getInstance().time))
-
-        mDays.postValue(days)
-    }
 }

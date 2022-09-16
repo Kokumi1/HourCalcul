@@ -8,26 +8,26 @@
         android:id="@+id/month_cell_date"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="du 01 au 07"
+        android:text="@string/month_cell_date"
         android:layout_margin="10dp"/>
 
     <TextView
         android:id="@+id/month_cell_total"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        android:text="Total Hour:"
+        android:text="@string/month_cell_total"
         android:layout_below="@id/month_cell_date"
         android:layout_margin="10dp"
         />
     <TextView
         android:id="@+id/month_cell_additional"
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="additional Hour:"
+        android:text="@string/month_cell_additional"
         android:layout_below="@id/month_cell_date"
         android:layout_toEndOf="@id/month_cell_total"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="100dp"
         />
 
 </RelativeLayout>

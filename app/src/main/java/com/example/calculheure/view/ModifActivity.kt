@@ -158,10 +158,10 @@ class ModifActivity : AppCompatActivity() {
      }
 
      override fun onBindViewHolder(holder: ModifViewHolder, position: Int) {
-         if(worksiteList.size > 0) holder.display(worksiteList[position])
+         if(worksiteList.size > 0) holder.display(worksiteList[position], position+1)
          // add empty worksite
          if(worksiteList.lastIndex == position){
-             holder.display(null)
+             holder.display(null, position+1)
          }
      }
 
@@ -196,7 +196,7 @@ class ModifActivity : AppCompatActivity() {
              * display data in the cell
              */
             @SuppressLint("SetTextI18n")
-            fun display(pWorksite: Worksite?){
+            fun display(pWorksite: Worksite?, pPosition: Int){
                 if(pWorksite != null) {
                     Log.d("recycler view holder","worksite show: no${pWorksite.id}")
                     worksiteEditText.setText(pWorksite.id.toString())
@@ -208,6 +208,9 @@ class ModifActivity : AppCompatActivity() {
                     endEditText.setText(pWorksite.endHour.get(Calendar.HOUR_OF_DAY).toString())
 
                     eraseButton.setOnClickListener { eraseWorksite(pWorksite) }
+                }
+                else{
+                    worksiteEditText.setText(pPosition.toString())
                 }
 
                 validButton.setOnClickListener { if(pWorksite == null) saveWorksite(true)

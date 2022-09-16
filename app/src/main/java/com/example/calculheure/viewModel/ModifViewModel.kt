@@ -38,14 +38,4 @@ class ModifViewModel : ViewModel() {
         mDay .postValue(pDay)
         dataTalker.saveDay(pDay)
     }
-
-    private fun retrieveDay(pContext: Context) {
-        val dataTalk = DataTalker(pContext)
-        val c = Calendar.getInstance()
-        val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
-
-        val day = dataTalk.getDay(dateTimeForm.format(c.time))
-
-        mDay.postValue(day)
-    }
 }
