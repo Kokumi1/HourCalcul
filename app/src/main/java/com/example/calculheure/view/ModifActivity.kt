@@ -3,11 +3,11 @@ package com.example.calculheure.view
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +18,6 @@ import com.example.calculheure.model.Worksite
 import com.example.calculheure.viewModel.ModifViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ModifActivity : AppCompatActivity() {
 
@@ -49,10 +48,13 @@ class ModifActivity : AppCompatActivity() {
         recyclerView.adapter = modifAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        //get day from intent
+        val pDay = intent.extras!!.getString("day")
+
         //View Model
-        mModifViewModel = ViewModelProvider(this).get(ModifViewModel::class.java)
+        mModifViewModel = ViewModelProvider(this)[ModifViewModel::class.java]
         lateinit var data : Day
-        mModifViewModel.getDay(this).observe(this){
+        mModifViewModel.getDay(this, pDay!!).observe(this){
             kotlin.run {
                 data = it
                 worksiteList = it.worksite
@@ -180,15 +182,15 @@ class ModifActivity : AppCompatActivity() {
         /**
          * ViewHolder of the RecyclerView Cell
          */
-     class ModifViewHolder(view: View,val pModif: ModifActivity) : RecyclerView.ViewHolder(view){
+     class ModifViewHolder(view: View, private val pModif: ModifActivity) : RecyclerView.ViewHolder(view){
 
          private val worksiteEditText = view.findViewById<EditText>(R.id.modif_cell_worksite)
          private val cityEditText = view.findViewById<EditText>(R.id.modif_cell_city)
          private val workEditText = view.findViewById<EditText>(R.id.modif_cell_work)
          private val morningEditText = view.findViewById<EditText>(R.id.modif_cell_morning)
          private val afternoonEditText = view.findViewById<EditText>(R.id.modif_cell_afternoon)
-         private val beginEditText = view.findViewById<EditText>(R.id.modif_cell_begin_hour)
-         private val endEditText = view.findViewById<EditText>(R.id.modif_cell_end_hour)
+         private val beginButton = view.findViewById<Button>(R.id.modif_cell_begin_hour)
+         private val endButton = view.findViewById<Button>(R.id.modif_cell_end_hour)
          private val validButton = view.findViewById<ImageButton>(R.id.modif_cell_valid)
          private val eraseButton = view.findViewById<ImageButton>(R.id.modif_cell_erase)
 
@@ -204,8 +206,8 @@ class ModifActivity : AppCompatActivity() {
                     workEditText.setText(pWorksite.work)
                     morningEditText.setText(pWorksite.aM.toString())
                     afternoonEditText.setText(pWorksite.pM.toString())
-                    beginEditText.setText(pWorksite.beginHour.get(Calendar.HOUR_OF_DAY).toString())
-                    endEditText.setText(pWorksite.endHour.get(Calendar.HOUR_OF_DAY).toString())
+                    beginButton.text = pWorksite.beginHour.get(Calendar.HOUR_OF_DAY).toString()
+                    endButton.text = pWorksite.endHour.get(Calendar.HOUR_OF_DAY).toString()
 
                     eraseButton.setOnClickListener { eraseWorksite(pWorksite) }
                 }
@@ -217,26 +219,26 @@ class ModifActivity : AppCompatActivity() {
                 else saveWorksite(false, pWorksite) }
 
                 //add listener to editText
-                beginEditText.setOnClickListener {
+                beginButton.setOnClickListener {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR_OF_DAY)
                     val minute = calendar.get(Calendar.MINUTE)
 
                     val picker = TimePickerDialog(pModif,
                         { _, sHour, sMinute ->
-                            beginEditText.setText("$sHour : $sMinute")
+                            beginButton.text = "$sHour : $sMinute"
                         }, hour,minute,true)
                     picker.show()
                 }
 
-                endEditText.setOnClickListener {
+                endButton.setOnClickListener {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR_OF_DAY)
                     val minute = calendar.get(Calendar.MINUTE)
 
                     val picker = TimePickerDialog(pModif,
                         { _, sHour, sMinute ->
-                            endEditText.setText("$sHour : $sMinute")
+                            endButton.text = "$sHour : $sMinute"
                         }, hour,minute,true)
                     picker.show()
                 }
@@ -246,8 +248,8 @@ class ModifActivity : AppCompatActivity() {
              * save the edit
              */
             private fun saveWorksite(new : Boolean, pOriginal: Worksite? = null){
-                 val partsBegin = beginEditText.text.toString().split(" : ")
-                 val partsEnd = endEditText.text.toString().split(" : ")
+                 val partsBegin = beginButton.text.toString().split(" : ")
+                 val partsEnd = endButton.text.toString().split(" : ")
 
                  val beginCalendar = Calendar.getInstance()
                  val endCalendar = Calendar.getInstance()

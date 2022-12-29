@@ -75,7 +75,10 @@ class MainActivity : AppCompatActivity() {
              }
         todayButton = findViewById(R.id.main_today)
         todayButton.setOnClickListener {
+            val c = Calendar.getInstance()
+            val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
             val intent = Intent(this,ModifActivity::class.java)
+            intent.putExtra("day",dateTimeForm.format(c.time))
             startActivity(intent)
         }
 
@@ -102,7 +105,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.toolbar_today->{
+                val c = Calendar.getInstance()
+                val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
                 val intent = Intent(this,ModifActivity::class.java)
+                intent.putExtra("day",dateTimeForm.format(c.time))
                 startActivity(intent)
             }
         }
@@ -136,7 +142,7 @@ class MainActivity : AppCompatActivity() {
 
                 if(c.getActualMaximum(Calendar.DATE) == c.get(Calendar.DAY_OF_MONTH)){
                     weeks[noWeek] = intArrayOf(firstDay.get(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_MONTH))
-                    Log.d("weeks","week: ${firstDay.get(Calendar.DAY_OF_MONTH)} to ${c.get(Calendar.DAY_OF_MONTH)}")
+                    Log.d("weeks","week: ${firstDay.get(Calendar.DAY_OF_MONTH)} ${R.string.general_to} ${c.get(Calendar.DAY_OF_MONTH)}")
                     noWeek++
                 } else if(c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
                     if(firstDay == Calendar.getInstance()){

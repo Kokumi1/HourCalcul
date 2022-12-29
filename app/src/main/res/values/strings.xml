@@ -30,7 +30,7 @@
     <string name="week_right_arrow">next button</string>
     <string name="week_morning">Morning Hour:</string>
     <string name="week_road">Road Time:</string>
-    <string name="week_break">Break Time</string>
+    <string name="week_break">Break Time:</string>
     <string name="week_total_time">Total Time:</string>
     <string name="week_afternoon">Afternoon Hour:</string>
     <string name="week_loading">Loading Time:</string>
@@ -57,4 +57,5 @@
 
     <string name="general_hourUnit">h</string>
     <string name="general_zero">0</string>
+    <string name="general_to">to</string>
 </resources>

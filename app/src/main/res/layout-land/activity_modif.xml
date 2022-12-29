@@ -102,6 +102,26 @@
         android:layout_marginTop="22dp"
         android:layout_marginEnd="20dp"
         />
+    <TextView
+        android:id="@+id/modif_break_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modif_recycler"
+        android:layout_toEndOf="@id/modif_road_unit"
+        android:text="@string/week_break"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        />
+
+    <EditText
+        android:id="@+id/modif_break_time"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modif_recycler"
+        android:layout_toEndOf="@id/modif_break_text"
+        android:autofillHints="H"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="10dp"/>
 
     <Button
         android:id="@+id/modif_confirm"

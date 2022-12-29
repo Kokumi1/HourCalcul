@@ -16,13 +16,13 @@ class ModifViewModel : ViewModel() {
     /**
      * get Day from DataTalker
      */
-    fun getDay(pContext: Context): LiveData<Day>{
+    fun getDay(pContext: Context, pCalendar: String): LiveData<Day>{
         if(mDay.value == null){
             val dataTalk = DataTalker(pContext)
-            val c = Calendar.getInstance()
-            val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
+            //val c = Calendar.getInstance()
+            //val dateTimeForm = SimpleDateFormat("dd/MM/yyyy",Locale.getDefault())
 
-            val day = dataTalk.getDay(dateTimeForm.format(c.time))
+            val day = dataTalk.getDay(pCalendar)
 
             mDay.postValue(day)
         }

@@ -26,9 +26,9 @@
     <string name="week_road">Temps de route:</string>
     <string name="week_break">Temps de pause:</string>
     <string name="week_total_time">Temps totale:</string>
-    <string name="week_afternoon">Heure d\'après-midi</string>
-    <string name="week_loading">Temps de chargement</string>
-    <string name="week_additional">Heure Supplémentaire</string>
+    <string name="week_afternoon">Heure d\'après-midi:</string>
+    <string name="week_loading">Temps de chargement:</string>
+    <string name="week_additional">Heure Supplémentaire:</string>
     <string name="week_recycler">Liste de jours</string>
     <string name="week_worksite">0</string>
     <string name="week_status">Jour de pause</string>
@@ -48,5 +48,6 @@
     <string name="general_hourUnit">h</string>
     <string name="general_zero">0</string>
     <string name="month_result">Bilan</string>
-    <string name="main_result">Heure de mois</string>
+    <string name="main_result">Heure du mois</string>
+    <string name="general_to">à</string>
 </resources>

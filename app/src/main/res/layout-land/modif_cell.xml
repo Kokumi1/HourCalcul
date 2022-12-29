@@ -62,7 +62,7 @@
         android:layout_toEndOf="@id/modif_cell_morning"
         />
 
-    <EditText
+    <Button
         android:id="@+id/modif_cell_begin_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,16 +70,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:autofillHints="@string/modif_cell_begin_hour"
-        android:hint="@string/modif_cell_begin_hour"
-        android:inputType="text" />
+        android:hint="@string/modif_cell_begin_hour"/>
 
-    <EditText
+    <Button
         android:id="@+id/modif_cell_end_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/modif_cell_end_hour"
         android:autofillHints="@string/modif_cell_end_hour"
-        android:inputType="text"
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/modif_cell_begin_hour"
